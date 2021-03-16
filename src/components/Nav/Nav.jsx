@@ -4,6 +4,10 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import {useSelector} from 'react-redux';
 
+
+import HomeIcon from '@material-ui/icons/Home';
+// import { white } from '@material-ui/core/colors';
+
 function Nav() {
   const user = useSelector((store) => store.user);
 
@@ -20,7 +24,9 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        {/* change this to a material UI home button */}
+        {/* <h2 className="nav-title"></h2>  */}
+        <HomeIcon color="primary" fontSize="large" />
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>
