@@ -12,14 +12,14 @@ function* fetchPedal(){
     console.log('Error in FetchPedal SAGA');
   }
 
-}
+} // end of fetchPedal Saga
 
 
 
 function* pedalSaga() {
   yield takeEvery('FETCH_PEDALS', fetchPedal);
   
-}
+} // end of pedalSaga dispatcher.
 
 
 export default pedalSaga;
