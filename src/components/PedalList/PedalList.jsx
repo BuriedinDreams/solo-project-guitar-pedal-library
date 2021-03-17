@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 // import './UserPage.css';
 import Grid from '@material-ui/core/Grid'; // this allows me to create grids.
@@ -11,9 +11,11 @@ function PedalList() {
 
   // const pedals = useSelector((store) => store.pedals);
 
-  // dispatch({
-  //   type: 'FETCH_PEDALS'
-  // })
+  useEffect(() =>{
+    // dispatch({
+    //   type: 'FETCH_PEDALS'
+    // })
+  },[]);
 
   return(
     <div>
