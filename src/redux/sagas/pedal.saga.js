@@ -14,12 +14,31 @@ function* fetchPedal(){
 
 } // end of fetchPedal Saga
 
-
-
 function* pedalSaga() {
   yield takeEvery('FETCH_PEDALS', fetchPedal);
   
 } // end of pedalSaga dispatcher.
 
+function* singlePedalSaga() {
+  yield takeEvery('FETCH_ONE_PEDAL',fetchOnePedal );
+} // end of singlePedalSaga
 
-export default pedalSaga;
+
+function* fetchOnePedal(action) {
+  try{
+    const onePedal = yield axios.get(`/api/pedal/${action.payload.id}`) 
+    yield put ({type: 'SET_ONE_PEDAL', payload: onePedal.data})
+
+  } catch{
+    console.log('Error in FetchOnePedal')
+  }
+
+
+}
+
+
+
+
+
+
+export { pedalSaga, singlePedalSaga, };

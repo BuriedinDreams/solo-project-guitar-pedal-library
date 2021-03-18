@@ -5,18 +5,19 @@ import ReactPlayer from 'react-player'
 import { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid'; // this allows me to create grids.
+import { useParams } from 'react-router';
 
 
 function DetailsPage( ) {
   const dispatch = useDispatch();
-
+  const params = useParams();
 
   const [youTubeLink, setNewYouTubeLink] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
 
 
   const user = useSelector((store) => store.onePedalReducer);
 
-
+// said pedal info store useSelector 
 
 
 
@@ -26,7 +27,8 @@ function DetailsPage( ) {
     event.preventDefault();
 
     dispatch({
-      type: 'SET_ONE_PEDAL'
+      type: 'FETCH_ONE_PEDAL',
+      payload: { id: params.id } // this is getting the id 
     });
 
     dispatch({
@@ -44,7 +46,7 @@ function DetailsPage( ) {
       <Grid container >
 
         <Grid  item xs={6}>
-        <h1>TS9 Tube Screamer</h1>
+        <h1>TS9 Tube Screamer</h1> 
         </Grid>
 
         <Grid>
