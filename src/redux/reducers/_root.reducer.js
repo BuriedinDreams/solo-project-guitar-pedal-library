@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import pedalReducer from './pedal.reducer'; 
+import PedalReducer from './pedal.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -12,7 +12,7 @@ import pedalReducer from './pedal.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  pedalReducer, // this will dispatch the information from the saga. 
+  PedalReducer, // I will have to call this reducer in order to get anything out of my pedal.reducer
 });
 
 export default rootReducer;

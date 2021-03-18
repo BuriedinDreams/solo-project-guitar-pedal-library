@@ -20,6 +20,31 @@ router.get('/', (req, res) => {
 
 });
 
+// This GET route will grab only 1 pedal from the DOM.
+router.get('/:id', (req, res) => {
+  console.log('req.params.id 1 PEDAL', req.params.id);
+  const queryText = `
+  SELECT * FROM "photos"
+  WHERE pedal_id = $1
+  `
+  const pedalID = req.params.id
+
+  pool.query(queryText, [pedalID])
+  .then(result =>{
+    res.send(result.rows);
+  })
+  .catch(error => {
+    console.log('ERROR IN: pedal.router, GET 1 pedal', error);
+    res.sendStatus(500)
+  })
+
+})
+
+
+
+
+
+
 // Post new photos of guitar pedals
 router.post('/', (req, res) => {
   console.log('req.body in pedal.router: POST',req.body );

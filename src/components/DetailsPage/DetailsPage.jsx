@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import './DetailsPage.css'
 import ReactPlayer from 'react-player'
 import { useState } from 'react';
@@ -7,11 +7,18 @@ import { useState } from 'react';
 import Grid from '@material-ui/core/Grid'; // this allows me to create grids.
 
 
-function DetailsPage() {
+function DetailsPage( ) {
   const dispatch = useDispatch();
 
 
   const [youTubeLink, setNewYouTubeLink] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
+
+
+  const user = useSelector((store) => store.onePedalReducer);
+
+
+
+
 
 
   function handleSubmit(event) {
@@ -19,10 +26,14 @@ function DetailsPage() {
     event.preventDefault();
 
     dispatch({
+      type: 'SET_ONE_PEDAL'
+    });
+
+    dispatch({
       type: 'SEND_YOUTUBE_VIDEO',
       payload: youTubeLink, 
     });
-    
+
   } // end handleSubmit
 
 
@@ -32,9 +43,12 @@ function DetailsPage() {
     <div>
       <Grid container >
 
-       
         <Grid  item xs={6}>
         <h1>TS9 Tube Screamer</h1>
+        </Grid>
+
+        <Grid>
+
         </Grid>
 
         <Grid item xs={2}>

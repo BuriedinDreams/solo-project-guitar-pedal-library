@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import PedalItem from '../PedalItem/PedalItem';
+import DetailsPage from '../DetailsPage/DetailsPage';
 // import './UserPage.css';
 
 
@@ -15,7 +16,7 @@ function PedalList() {
     })
   },[]);
 
-  const pedals = useSelector((store) => store.pedalReducer);
+  const pedals = useSelector((store) => store.PedalReducer.allPedalsReducer);
 
   return(
     <ul>
@@ -24,6 +25,7 @@ function PedalList() {
             <div key={iPedal.id} >  
             {/* This is going to send the Individual pedals to the Pedal Item file.  */}
             <PedalItem pedals={iPedal} /> 
+           
           </div>
           )
         })}
