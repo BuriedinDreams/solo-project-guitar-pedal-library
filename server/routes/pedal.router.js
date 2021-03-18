@@ -1,14 +1,15 @@
-const express = require('express');
 const pool = require('../modules/pool');
+const express = require('express');
 const router = express.Router();
 
 
 // Get router -- retrieving the information from the DB
 // this GET is to retrieve all of the photos so they may be placed on the DOM.
 router.get('/', (req, res) => {
-
+  
   const query = `SELECT * FROM "photos"`; // this is going to grab all of the photos of the guitar pedals.
-  pool.query(query)
+  const pedalId = req.params.id;
+  pool.query(query )
     .then( result => {
       res.send(result.rows);
     })
@@ -48,7 +49,7 @@ router.put('/:id', (req, res) => {
                 SET "pedal_id" = (SELECT "pedal_id".id FROM "photo"
                 WHERE "photo".photo = '${pedalPhoto}')
                 WHERE "photo".id = $1;`
-  pool.query(queryText, [pedalPhoto])
+  pool.query(queryText, [pedalPhoto, pedalId ])
     .then((result) => {
       console.log('Successful PUT');
       res.sendStatus(200);

@@ -15,10 +15,11 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+// import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import DetailsPage from '../DetailsPage/DetailsPage';
 
 import './App.css';
 
@@ -61,9 +62,9 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/details"
           >
-            <InfoPage />
+            <DetailsPage />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
@@ -101,7 +102,7 @@ function App() {
           >
             <LandingPage />
           </ProtectedRoute>
-
+          
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
