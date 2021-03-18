@@ -2,6 +2,11 @@
 import { put, takeEvery, takeLatest } from '@redux-saga/core/effects';
 import axios from 'axios';
 
+function* pedalSaga() {
+  yield takeEvery('FETCH_PEDALS', fetchPedal);
+  
+} // end of pedalSaga dispatcher.
+
 function* fetchPedal(){
 
   try{
@@ -14,15 +19,10 @@ function* fetchPedal(){
 
 } // end of fetchPedal Saga
 
-function* pedalSaga() {
-  yield takeEvery('FETCH_PEDALS', fetchPedal);
-  
-} // end of pedalSaga dispatcher.
 
 function* singlePedalSaga() {
   yield takeEvery('FETCH_ONE_PEDAL',fetchOnePedal );
 } // end of singlePedalSaga
-
 
 function* fetchOnePedal(action) {
   try{
@@ -33,8 +33,7 @@ function* fetchOnePedal(action) {
     console.log('Error in FetchOnePedal')
   }
 
-
-}
+} // end of FetchOnePedalSaga
 
 
 

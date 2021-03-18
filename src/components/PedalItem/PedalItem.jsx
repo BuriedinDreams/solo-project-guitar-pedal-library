@@ -5,7 +5,7 @@ import './PedalItem.css'
 
 
 
-function pedalItem( {pedals} ) {
+function pedalItem( {pedals} ) { // this pedals is a parameter gotten from the on click event.
   const history = useHistory(); // this is used get to the next page
 
 function goToDetailsPage(id) {
