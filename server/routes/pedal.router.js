@@ -28,10 +28,7 @@ router.get('/', (req, res) => {
 // This GET route will grab only 1 pedal from the DOM.
 router.get('/:id', (req, res) => {
   console.log('req.params.id PEDAL', req.params.id);
-  // const queryText = `
-  // SELECT * FROM "photos"
-  // WHERE pedal_id = $1
-  // ;`
+  
   const queryText = `
   SELECT "pedal".id, "photos".photo, "pedal".pedal_name, 
   "pedal".description_of_pedal
