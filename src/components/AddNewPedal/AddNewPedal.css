@@ -1,0 +1,18 @@
+.Top-Banner{
+  background-position: center;
+  /* background-repeat: no-repeat; */
+  background-size: 100px;
+  /* position: ; */
+  /* position: relative; */
+
+  text-align: center;
+  padding: 1rem ;
+  border-radius: 15px;
+  /* max-width: 50%; */
+  /* align-items: center; */
+  /* width: 50em; */
+  color: white;
+  background: rgb(16,121,9);
+background: linear-gradient(90deg, rgba(16,121,9,1) 35%, rgba(6,0,255,1) 100%);
+  /* position: absolute; */
+}

@@ -10,6 +10,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const pedalRouter = require('./routes/pedal.router');
+const youTubeRouter = require('./routes/youTube.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -25,6 +26,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/pedal', pedalRouter);
+app.use('/api/youTube', youTubeRouter);
 
 
 // Serve static files

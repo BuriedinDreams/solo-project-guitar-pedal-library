@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid'; // this allows me to create grids.
 
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+// This page is homepage. 
   const user = useSelector((store) => store.user);
   return (
     <div className="container">

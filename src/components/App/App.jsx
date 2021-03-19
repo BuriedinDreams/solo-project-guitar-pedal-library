@@ -11,8 +11,9 @@ import { useDispatch } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import './App.css';
 
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 // import InfoPage from '../InfoPage/InfoPage';
@@ -20,8 +21,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import DetailsPage from '../DetailsPage/DetailsPage';
+import AddNewPedal from '../AddNewPedal/AddNewPedal';
 
-import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -60,11 +61,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // This Route takes user to detailsPage.
             exact
             path="/details/:id"
           >
             <DetailsPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // this Route will take user to newPedal "My Pedals page"
+            exact
+            path="/newPedal"
+          >
+            <AddNewPedal />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
