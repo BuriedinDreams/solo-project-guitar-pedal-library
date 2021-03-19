@@ -51,10 +51,6 @@ router.get('/:id', (req, res) => {
 })
 
 
-
-
-
-
 // Post new photos of guitar pedals
 router.post('/', (req, res) => {
   console.log('req.body in pedal.router: POST',req.body );

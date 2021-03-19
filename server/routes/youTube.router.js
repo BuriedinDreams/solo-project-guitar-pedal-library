@@ -10,19 +10,19 @@ router.post('/', (req, res) => {
 
   const youTubeQuery =`
   INSERT INTO "youtube_links" ("user_id", "pedal_id", "youtube_links", "youtube_link_title")
-  VALUES ($1), ($2), ($3), ($4) 
+  VALUES ($1, $2, $3, $4) 
   ;`
 
-  pool.query( youTubeQuery, [req.body.video] )
+  pool.query( youTubeQuery, [req.user.id, req.body.id, req.body.youTubeLink, req.body.youTubeTitle ] )  // this is retrieving the information from DetailsPage.
   .then((result) => {
-    result.sendStatus(201);
+    res.sendStatus(201);
   })
   .catch((error) => {
     console.log('Error in youTube.router, POST', error);
     res.sendStatus(500);
   });
 
-})
+});
 
 // This GET is going to retrieve all the data for the youtube videos
 router.get('/', (req, res) =>{

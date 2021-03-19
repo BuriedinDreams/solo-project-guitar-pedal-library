@@ -3,6 +3,9 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import {pedalSaga, singlePedalSaga } from './pedal.saga'
+// import {sendYouTubeVideosSaga, } from './youtube.saga'
+import sendYouTubeVideosSaga from './youtube.saga'
+
 
 
 // rootSaga is the primary saga.
@@ -19,5 +22,7 @@ export default function* rootSaga() {
     userSaga(),
     pedalSaga(),
     singlePedalSaga(),
+    sendYouTubeVideosSaga(),
+
   ]);
 }

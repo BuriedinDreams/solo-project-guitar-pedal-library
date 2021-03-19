@@ -14,10 +14,13 @@ function DetailsPage( ) {
 
   
   const [youTubeLink, setNewYouTubeLink] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
-  // const []
+  const [ youTubeTitle, setNewYouTubeTitle ] = useState('') // this is capturing the youtube title created by the user.
 
   const onePedal = useSelector((store) => store.PedalReducer.onePedalReducer);
   console.log('one pedal useSelector',onePedal);
+
+  // const youTubeVids = useSelector((store) => store.YoutubeReducer.youTubeReducer)
+  // console.log('grab all the youtube vids.', youTubeVids);
 
 // said pedal info store useSelector 
 
@@ -30,13 +33,13 @@ useEffect(() =>{
 
 
   function handleSubmit(event) {
-    //console.log('Im clicked', newSearch);
+    console.log('handleSubmit event', event);
     event.preventDefault();
 
 
     dispatch({
       type: 'SEND_YOUTUBE_VIDEO',
-      payload: youTubeLink, 
+      payload: { youTubeLink,  id: params.id, youTubeTitle  } 
     });
 
   } // end handleSubmit
@@ -70,6 +73,9 @@ useEffect(() =>{
           <h1>Enter YouTube Link in Textbox</h1>
           <form onSubmit={handleSubmit} >
             <input onChange={(event) => setNewYouTubeLink(event.target.value)} type= "text" placeholder= "Youtube Links here"/>
+            <input onChange={(event) => setNewYouTubeTitle(event.target.value)} type= "text" placeholder= "YouTube title of choice"/>
+          <button>Submit</button> 
+          {/* ^^ Once this button is clicked it will submit all the information in the textboxes. */}
             <ReactPlayer url= {youTubeLink} controls={true} />
           </form> 
         </div>
