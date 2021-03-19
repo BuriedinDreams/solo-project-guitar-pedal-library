@@ -29,8 +29,8 @@ function* fetchOnePedal(action) {
     const onePedal = yield axios.get(`/api/pedal/${action.payload.id}`) 
     yield put ({type: 'SET_ONE_PEDAL', payload: onePedal.data})
 
-  } catch{
-    console.log('Error in FetchOnePedal')
+  } catch(error){
+    console.log('Error in FetchOnePedal',error)
   }
 
 } // end of FetchOnePedalSaga

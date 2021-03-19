@@ -9,7 +9,7 @@ function pedalItem( {pedals} ) { // this pedals is a parameter gotten from the o
   const history = useHistory(); // this is used get to the next page
 
 function goToDetailsPage(id) {
-  console.log(id);
+  console.log('This is the id for said pedal clicked',id);
   history.push(`/details/${id}`)
 
 }
@@ -21,8 +21,8 @@ function goToDetailsPage(id) {
 
       <div className="pedalImg" >
         <div > <img src={pedals.photo} alt="image of pedal" height="200px" onClick={() => goToDetailsPage(pedals.id)} /> </div>
-         {/* pedal_name */}
-        {/* pedal_likes */}
+        <div>{pedals.pedal_name}</div> 
+        <div>Has {pedals.Likes} Likes!</div>
       </div>
 
     )

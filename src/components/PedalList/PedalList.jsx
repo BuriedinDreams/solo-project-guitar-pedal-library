@@ -16,13 +16,14 @@ function PedalList() {
     })
   },[]);
 
-  const pedals = useSelector((store) => store.PedalReducer.allPedalsReducer);
+  const pedals = useSelector((store) => store.PedalReducer.allPedalsReducer); 
+  // by having PedalReducer.allPedalsReducer grabs from the exact reducer we want information to be grabbed from.
 
   return(
     <ul>
       {pedals.map(iPedal => {
           return(
-            <div key={iPedal.id} >  
+            <div key={iPedal.id} key={iPedal.pedal_name} >  
             {/* This is going to send the Individual pedals to the Pedal Item file.  */}
             <PedalItem pedals={iPedal} /> 
            

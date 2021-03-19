@@ -7,7 +7,12 @@ const router = express.Router();
 // this GET is to retrieve all of the photos so they may be placed on the DOM.
 router.get('/', (req, res) => {
   
-  const query = `SELECT * FROM "photos"`; // this is going to grab all of the photos of the guitar pedals.
+  const query = `SELECT count("likes".pedal_id) as "Likes", "photos".photo, "pedal".pedal_name, "pedal".description_of_pedal, "pedal".id
+  FROM "photos"
+  JOIN "pedal" on "pedal".id = "photos".pedal_id
+  JOIN "likes" on "likes".pedal_id = "pedal".id
+  GROUP BY "pedal".id, "photos".id
+   ;`; // this is going to grab all of the photos of the guitar pedals.
   const pedalId = req.params.id;
   pool.query(query )
     .then( result => {
@@ -22,16 +27,24 @@ router.get('/', (req, res) => {
 
 // This GET route will grab only 1 pedal from the DOM.
 router.get('/:id', (req, res) => {
-  console.log('req.params.id 1 PEDAL', req.params.id);
+  console.log('req.params.id PEDAL', req.params.id);
+  // const queryText = `
+  // SELECT * FROM "photos"
+  // WHERE pedal_id = $1
+  // ;`
   const queryText = `
-  SELECT * FROM "photos"
-  WHERE pedal_id = $1
-  `
+  SELECT "pedal".id, "photos".photo, "pedal".pedal_name, 
+  "pedal".description_of_pedal
+  FROM "photos"
+  JOIN "pedal" on "pedal".id = "photos".pedal_id
+  JOIN "likes" on "likes".pedal_id = "pedal".id
+  WHERE "pedal".id = $1
+  ;`
   const pedalID = req.params.id
 
   pool.query(queryText, [pedalID])
   .then(result =>{
-    res.send(result.rows);
+    res.send(result.rows[0]); // This will only grab one row of data.
   })
   .catch(error => {
     console.log('ERROR IN: pedal.router, GET 1 pedal', error);
