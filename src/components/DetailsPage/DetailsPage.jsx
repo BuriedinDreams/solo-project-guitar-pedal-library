@@ -39,7 +39,7 @@ useEffect(() =>{
 
     dispatch({
       type: 'SEND_YOUTUBE_VIDEO',
-      payload: { youTubeLink,  id: params.id, youTubeTitle  } 
+      payload: { youTubeLink, id: params.id, youTubeTitle  } 
     });
 
   } // end handleSubmit
