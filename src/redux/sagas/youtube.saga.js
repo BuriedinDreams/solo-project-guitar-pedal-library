@@ -21,15 +21,21 @@ function* youTubeVideosSaga(action) {
 
 
 
+function* fetchYouTubeVideosSaga(){
+  try {
+    let response = yield axios.get('/api/youTube');
+    yield put({
+      type: 'SET_YOUTUBE_VIDEO',
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log('fetch error', err);
+  }
+}
 
 
 
 
+// export default sendYouTubeVideosSaga;
 
-
-
-
-
-export default sendYouTubeVideosSaga;
-
-// export { sendYouTubeVideosSaga, };
+export { sendYouTubeVideosSaga, fetchYouTubeVideosSaga};
