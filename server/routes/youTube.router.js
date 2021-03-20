@@ -30,7 +30,7 @@ router.get('/', (req, res) =>{
   
   queryText=`SELECT * FROM "youtube_links";`
 
-  pool.query(queryText, [youTubeVideoID])
+  pool.query(queryText, ) //[youTubeVideoID]
   .then(result =>{
     res.send(result.rows); 
   })

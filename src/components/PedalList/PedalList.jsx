@@ -30,9 +30,6 @@ function PedalList() {
           </div>
           )
         })}
-        
-        
-    
     </ul>
 
   );

@@ -19,8 +19,8 @@ function DetailsPage( ) {
   const onePedal = useSelector((store) => store.PedalReducer.onePedalReducer);
   console.log('one pedal useSelector',onePedal);
 
-  // const youTubeVids = useSelector((store) => store.YoutubeReducer.youTubeReducer)
-  // console.log('grab all the youtube vids.', youTubeVids);
+  const youTubeVids = useSelector((store) => store.YouTubeReducer.fetchYouTubeVideosReducer)
+  console.log('grab all the youtube vids.', youTubeVids);
 
 // said pedal info store useSelector 
 
@@ -78,6 +78,19 @@ useEffect(() =>{
           {/* ^^ Once this button is clicked it will submit all the information in the textboxes. */}
             <ReactPlayer url= {youTubeLink} controls={true} />
           </form> 
+
+
+          <div>
+          {youTubeVids.map(ivideo => {
+            return(
+              <div key={ivideo.id} key={ivideo.youTubeLink} >  
+              < ReactPlayer url={ivideo.youtube_links} controls={true} />
+            
+            </div>
+            )
+          })}
+          </div>
+
         </div>
         </Grid>
 
