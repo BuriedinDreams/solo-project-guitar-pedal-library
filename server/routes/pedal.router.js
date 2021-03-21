@@ -59,18 +59,38 @@ router.post('/', (req, res) => {
     INSERT INTO "pedal" ( "user_id", "pedal_name", "description_of_pedal" )
     VALUES ( $1, $2, $3 ) RETURNING "id" ;`
 
+    // First Query makes the pedal information
     pool.query( pedalInfo, [ req.user.id, req.body.pedalName, req.body.description ] )
     .then((result) => {
       const pedalId = result.rows[0].id;
-      res.sendStatus(201);
-      pool.query()
+
+        const youTubeQuery =`
+        INSERT INTO "youtube_links" ("user_id", "pedal_id", "youtube_links", "youtube_link_title")
+        VALUES ($1, $2, $3, $4) 
+        ;`
+
+        pool.query( youTubeQuery, [req.user.id, pedalId, req.body.youTubeLink, req.body.youTubeTitle ] )  // this is retrieving the information from newPedalPage.
+        .then((result) => {
+          res.sendStatus(201);
+        })
+        .catch((error) => {
+          console.log('Error in pedal.router YouTube PART, POST', error);
+          res.sendStatus(500);
+        })
+
+      // });
     })
     .catch((error) => {
       console.log('Error in pedal.router POST', error);
       res.sendStatus(500);
     });
-
 })
+
+
+
+
+
+
 
 // update given photo with photo table
 router.put('/:id', (req, res) => {
