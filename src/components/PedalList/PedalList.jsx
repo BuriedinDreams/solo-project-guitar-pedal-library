@@ -23,7 +23,7 @@ function PedalList() {
     <ul>
       {pedals.map(iPedal => {
           return(
-            <div key={iPedal.id} key={iPedal.pedal_name} >  
+            <div key={iPedal.id} key={iPedal.pedal_name}  >  
             {/* This is going to send the Individual pedals to the Pedal Item file.  */}
             <PedalItem pedals={iPedal} /> 
            

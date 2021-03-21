@@ -42,6 +42,7 @@ function* newPedalInfoSaga() {
 }
 
 function* newPedalPost(action) {
+  console.log('see what is in the pay.load', action.payload);
   try{
     yield axios.post(`/api/pedal`, action.payload)
 

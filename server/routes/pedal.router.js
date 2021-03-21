@@ -7,11 +7,11 @@ const router = express.Router();
 // this GET is to retrieve all of the photos so they may be placed on the DOM.
 router.get('/', (req, res) => {
   
-  const query = `SELECT count("likes".pedal_id) as "Likes", "photos".photo, "pedal".pedal_name, "pedal".description_of_pedal, "pedal".id
-  FROM "photos"
-  JOIN "pedal" on "pedal".id = "photos".pedal_id
-  JOIN "likes" on "likes".pedal_id = "pedal".id
-  GROUP BY "pedal".id, "photos".id
+  const query = `SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal"
+  description_of_pedal, "pedal".photo 
+  FROM "pedal"
+  LEFT OUTER JOIN "likes" on "likes".pedal_id = "pedal".id
+  GROUP BY "pedal".id
    ;`; // this is going to grab all of the photos of the guitar pedals.
   const pedalId = req.params.id;
   pool.query(query )
@@ -30,12 +30,11 @@ router.get('/:id', (req, res) => {
   console.log('req.params.id PEDAL', req.params.id);
   
   const queryText = `
-  SELECT "pedal".id, "photos".photo, "pedal".pedal_name, 
-  "pedal".description_of_pedal
-  FROM "photos"
-  JOIN "pedal" on "pedal".id = "photos".pedal_id
-  JOIN "likes" on "likes".pedal_id = "pedal".id
+  SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal".description_of_pedal, "pedal".photo 
+  FROM "pedal"
+  LEFT OUTER JOIN "likes" on "likes".pedal_id = "pedal".id
   WHERE "pedal".id = $1
+  GROUP BY "pedal".id
   ;`
   const pedalID = req.params.id
 
@@ -56,13 +55,14 @@ router.post('/', (req, res) => {
   console.log('req.body in pedal.router: POST',req.body );
 
   const pedalInfo =`
-    INSERT INTO "pedal" ( "user_id", "pedal_name", "description_of_pedal" )
-    VALUES ( $1, $2, $3 ) RETURNING "id" ;`
+    INSERT INTO "pedal" ( "user_id", "pedal_name", "description_of_pedal", "photo" )
+    VALUES ( $1, $2, $3, $4 ) RETURNING "id" ;`
 
     // First Query makes the pedal information
-    pool.query( pedalInfo, [ req.user.id, req.body.pedalName, req.body.description ] )
+    pool.query( pedalInfo, [ req.user.id, req.body.pedalName, req.body.description, req.body.pedalPhoto ] )
     .then((result) => {
       const pedalId = result.rows[0].id;
+      console.log('pedalId', pedalId);
 
         const youTubeQuery =`
         INSERT INTO "youtube_links" ("user_id", "pedal_id", "youtube_links", "youtube_link_title")

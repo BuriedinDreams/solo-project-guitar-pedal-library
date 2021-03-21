@@ -22,11 +22,9 @@ function AddNewPedal() {
     console.log('handleSubmit event', event);
     event.preventDefault();
 
-   
-
     dispatch({
       type: 'SEND_PEDAL_INFO',
-      payload: { pedalName, description, pedalPhoto, youTubeLink, id: params.id, youTubeTitle }
+      payload: { pedalName, description, pedalPhoto, youTubeLink, youTubeTitle }
     });
 
     // dispatch({
