@@ -26,7 +26,7 @@ function Nav() {
       <Link to="/home">
         {/* change this to a material UI home button */}
         {/* <h2 className="nav-title"></h2>  */}
-        <HomeIcon color="primary" fontSize="large" />
+        
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>

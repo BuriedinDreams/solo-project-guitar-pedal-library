@@ -37,7 +37,26 @@ function* fetchOnePedal(action) {
 
 
 
+function* newPedalInfoSaga() {
+  yield takeEvery('SEND_PEDAL_INFO', newPedalPost )
+}
+
+function* newPedalPost(action) {
+  try{
+    yield axios.post(`/api/pedal`, action.payload)
+
+    yield put({
+      type: 'FETCH_PEDALS'
+    })
+
+  } catch{
+    console.log('Error inside newPedalInfoSaga: pedal.saga');
+  }
+}
 
 
 
-export { pedalSaga, singlePedalSaga, };
+
+
+
+export { pedalSaga, singlePedalSaga, newPedalInfoSaga };

@@ -51,20 +51,19 @@ router.get('/:id', (req, res) => {
 })
 
 
-
-
-
 // Post new photos of guitar pedals
 router.post('/', (req, res) => {
   console.log('req.body in pedal.router: POST',req.body );
 
   const pedalInfo =`
-    INSERT INTO "pedal" ("pedal_name", "description_of_pedal")
-    VALUES ( $1, $2 ) ;`
+    INSERT INTO "pedal" ( "user_id", "pedal_name", "description_of_pedal" )
+    VALUES ( $1, $2, $3 ) RETURNING "id" ;`
 
-    pool.query( pedalPhotoQuery, [req.body.photo] )
+    pool.query( pedalInfo, [ req.user.id, req.body.pedalName, req.body.description ] )
     .then((result) => {
-      result.sendStatus(201);
+      const pedalId = result.rows[0].id;
+      res.sendStatus(201);
+      pool.query()
     })
     .catch((error) => {
       console.log('Error in pedal.router POST', error);

@@ -12,7 +12,7 @@ function AddNewPedal() {
   const dispatch = useDispatch();
   const params = useParams();
 
-  
+  const [pedalPhoto, setPedalPhoto] = useState('')
   const [ pedalName, setPedalName] = useState('') // This is capturing what the user inputs for the pedal name
   const [ description, setNewDescription ] = useState('') // this is capturing what the user puts in the textarea.
   const [ youTubeTitle, setNewYouTubeTitle ] = useState('') // this is capturing the youtube title created by the user.
@@ -22,6 +22,15 @@ function AddNewPedal() {
     console.log('handleSubmit event', event);
     event.preventDefault();
 
+    dispatch({
+      type: 'SEND_GUITAR_PHOTO',
+      payload: { pedalPhoto }
+    });
+
+    dispatch({
+      type: 'SEND_PEDAL_INFO',
+      payload: { pedalName, description }
+    });
 
     dispatch({
       type: 'SEND_YOUTUBE_VIDEO',
@@ -35,6 +44,7 @@ function AddNewPedal() {
   return(
     <div >
       <form onSubmit={handleSubmit} >
+      <input onChange={(event) => setPedalPhoto(event.target.value)} type= "text" placeholder= "Guitar Pedal URL Link" />
         <input onChange={(event) => setPedalName(event.target.value)} type= "text" placeholder= "Enter The Pedal Name Here" />
         <textarea onChange={(event) => setNewDescription(event.target.value)}  
           id="descriptionBox"
@@ -43,9 +53,9 @@ function AddNewPedal() {
           placeholder="Enter description of the new pedal here" >
         </textarea>
 
-        <h1>Enter YouTube Link in Textbox</h1>
+
           <input onChange={(event) => setNewYouTubeTitle(event.target.value)} type= "text" placeholder= "YouTube title of choice"/>
-          <input onChange={(event) => setNewYouTubeLink(event.target.value)} type= "text" placeholder= "Youtube Links here"/>
+          <input onChange={(event) => setNewYouTubeLink(event.target.value)} type= "text" placeholder= " Add YouTube URL Links here"/>
           <button>Submit</button> 
           {/* This button is going to activate the form onSubmit. */}
       </form>
