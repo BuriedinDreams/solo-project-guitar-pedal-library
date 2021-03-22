@@ -108,7 +108,9 @@ useEffect(() =>{
           <div>
           {youTubeVids.map(ivideo => {
             return(
-              <div key={ivideo.id} key={ivideo.youTubeLink} >  
+              <div key={ivideo.id} key={ivideo.youTubeLink} key={ivideo.youtube_link_title} >
+                <br/>
+                <h3>{ivideo.youtube_link_title}</h3>
               < ReactPlayer url={ivideo.youtube_links} controls={true} />
             
             </div>

@@ -69,9 +69,17 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // this Route will take user to newPedal "My Pedals page"
+            // this Route will take user to newPedal "The page to post new pedals to the page"
             exact
             path="/newPedal"
+          >
+            <AddNewPedal />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // this Route will take user to myPedals "The page for users to see pedals they have created on the website."
+            exact
+            path="/myPedals"
           >
             <AddNewPedal />
           </ProtectedRoute>
