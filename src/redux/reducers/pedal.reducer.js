@@ -20,10 +20,18 @@ const onePedalReducer = ( state =[], action ) => {
   return state;
 } // end onePedalReducer
 
+const UsersPedalReducer = (state= [], action ) => {
+  if (action.type === 'SET_USERS_PEDALS') {
+    return action.payload
+  }
+  return state;
+} // end of UsersPedalReducer
+
 
 
 export default combineReducers({
   allPedalsReducer,
   onePedalReducer,
+  UsersPedalReducer,
 
 })  

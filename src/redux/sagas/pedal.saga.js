@@ -11,7 +11,7 @@ function* fetchPedal(){
 
   try{
     const pedals = yield axios.get('/api/pedal');
-    console.log('get photo of pedals', pedals.data); // I don't recall how we get the parameter name
+    console.log('get photo of pedals', pedals.data); 
     yield put({ type: 'SET_PEDALS', payload: pedals.data });
   } catch {
     console.log('Error in FetchPedal SAGA');
@@ -76,7 +76,25 @@ function* createLikeSaga(action) {
 } // end of newPedalInfoSaga
 
 
+function* myPedalsSaga() {
+  yield takeEvery('FETCH_USERS_PEDALS', fetchUsersPedal);
+  
+} // end of pedalSaga dispatcher.
+
+function* fetchUsersPedal(){
+
+  try{
+    const pedals = yield axios.get('/api/pedal/myPedals');
+    console.log('get photo of pedals', pedals.data); 
+    yield put({ type: 'SET_USERS_PEDALS', payload: pedals.data });
+  } catch {
+    console.log('Error in FetchPedal SAGA');
+  }
+
+} // end of fetchPedal Saga
 
 
 
-export { pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga  };
+
+
+export { pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga, myPedalsSaga  };

@@ -11,6 +11,10 @@ function MyPedals() {
   const dispatch = useDispatch();
   const params = useParams();
 
+  const UsersPedals = useSelector((store) => store.PedalReducer.UsersPedalReducer);
+  console.log('one pedal useSelector',UsersPedals);
+
+
   useEffect(() =>{
     dispatch({
       type: 'FETCH_USERS_PEDALS',
@@ -24,13 +28,18 @@ function MyPedals() {
   return(
     <div>
 
-      <h1>TEST</h1>
+    <h1></h1>
+    
+    {UsersPedals.map(iPedals => {
+      return(
+        <div key={iPedals.id} key={iPedals.photo} >
+          <div><img src={iPedals.photo} alt="" height="200px" /></div>
 
 
 
-
-
-
+        </div>
+      )
+    })}
     </div>
 
   )
