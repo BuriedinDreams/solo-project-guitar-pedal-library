@@ -1,3 +1,4 @@
+import './myPedals.css'
 import React, { useEffect } from 'react';
 // import LogOutButton from '../LogOutButton/LogOutButton';
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,35 +8,50 @@ import { useState } from 'react';
 
 
 
+
+
 function MyPedals() {
   const dispatch = useDispatch();
   const params = useParams();
+ 
 
   const UsersPedals = useSelector((store) => store.PedalReducer.UsersPedalReducer);
-  console.log('one pedal useSelector',UsersPedals);
+  console.log('usersPedal useSelector',UsersPedals);
 
 
   useEffect(() =>{
     dispatch({
       type: 'FETCH_USERS_PEDALS',
-      payload: { 
-        id: params.id  // this is getting the pedal id 
-      } 
+    
     });
   },[]);
+
+  // function detailsPage(){
+  //   dispatch({
+  //     type: 'FETCH_ONE_PEDAL',
+  //     payload: { id: params.id } // this is getting the id 
+  //   });
+  // }
 
 
   return(
     <div>
+        <Grid container justify="center" >
 
-    <h1></h1>
-    
+          <Grid item xs={6}>
+          <div className="Top-Banner-myPedals" justify="center" >
+            <h2>My pedal Board collection</h2>
+            <p> checkout all of the pedals! </p>
+          </div>
+          </Grid>
+
+        </Grid>
+
     {UsersPedals.map(iPedals => {
       return(
-        <div key={iPedals.id} key={iPedals.photo} >
-          <div><img src={iPedals.photo} alt="" height="200px" /></div>
-
-
+        <div key={iPedals.id} key={iPedals.photo} key={iPedals.pedal_name} >
+          <div onClick={detailsPage} ><img src={iPedals.photo} alt="" height="200px" /></div>
+          <div>{iPedals.pedal_name}</div>
 
         </div>
       )

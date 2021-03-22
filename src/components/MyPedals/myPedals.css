@@ -1,0 +1,11 @@
+.Top-Banner-myPedals{
+  text-align: center;
+  background-position: center;
+  padding: 1rem ;
+  border-radius: 15px;
+
+  text-align: center;
+  color: white;
+  background: rgb(16,121,9);
+  background: linear-gradient(90deg, rgba(16,121,9,1) 35%, rgba(6,0,255,1) 100%);
+}

@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 });
 
 // This GET route will grab only 1 pedal from the DOM.
-router.get('/:id', (req, res) => {
+router.get('/onePedal/:id', (req, res) => {
   console.log('req.params.id PEDAL', req.params.id);
   
   const queryText = `
@@ -105,14 +105,16 @@ router.post('/likes', (req, res) => {
 // This GET will retrieve all the pedals the said user created
 router.get('/myPedals', (req, res) => {
   const queryText = `
-  SELECT "user_id", "pedal_name", "photo"
+  SELECT *
 FROM "pedal"
 WHERE "user_id" = $1
 ;
   `;
 
-  pool.query(queryText )
+  pool.query(queryText, [req.user.id ])
   .then( result => {
+    console.log('This is what we are getting in the DataBase', result);
+    console.log('Got data for user:', req.user.id);
     res.send(result.rows);
   })
   .catch(error => {

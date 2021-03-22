@@ -26,7 +26,7 @@ function* singlePedalSaga() {
 
 function* fetchOnePedal(action) {
   try{
-    const onePedal = yield axios.get(`/api/pedal/${action.payload.id}`) 
+    const onePedal = yield axios.get(`/api/pedal/onePedal/${action.payload.id}`) 
     yield put ({type: 'SET_ONE_PEDAL', payload: onePedal.data})
 
   } catch(error){
@@ -82,7 +82,7 @@ function* myPedalsSaga() {
 } // end of pedalSaga dispatcher.
 
 function* fetchUsersPedal(){
-
+console.log('Fetching users pedals');
   try{
     const pedals = yield axios.get('/api/pedal/myPedals');
     console.log('get photo of pedals', pedals.data); 
