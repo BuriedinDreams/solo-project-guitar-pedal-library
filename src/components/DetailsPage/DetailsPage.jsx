@@ -55,7 +55,7 @@ useEffect(() =>{
     
     dispatch({
       type: 'ADD_LIKE',
-      // payload: { id: params.id }
+      payload: { id: params.id }
     })
 
   }

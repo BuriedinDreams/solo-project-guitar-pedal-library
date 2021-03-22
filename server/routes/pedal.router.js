@@ -87,13 +87,13 @@ router.post('/', (req, res) => {
 })
 
 // This is going to post the Like information to the DB.
-router.post('/likes', (req, res) => { // I'm not sure what to put for the '/'
+router.post('/likes', (req, res) => { 
   console.log('req.body in POST router for Likes ',req.body );
 
   const queryText = ` INSERT INTO "likes" ( "user_id", "pedal_id" )
   VALUES ($1, $2 )ON CONFLICT DO NOTHING ; `
 
-  pool.query( queryText, [ req.user.id, req.body.pedalID ] )
+  pool.query( queryText, [ req.user.id, req.body.id ] )
     .then((result) => {
       res.sendStatus(201);
   }).catch((error) =>{
