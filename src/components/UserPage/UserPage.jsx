@@ -7,13 +7,14 @@ import PedalList from '../PedalList/PedalList'
 import Grid from '@material-ui/core/Grid'; // this allows me to create grids.
 import Button from '@material-ui/core/Button';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { IconButton } from '@material-ui/core';
 
 
 
 
 function UserPage() {
-// This page is homepage. 
+// This page is the Homepage. 
   const user = useSelector((store) => store.user);
   return (
     <div className="container">
@@ -21,6 +22,12 @@ function UserPage() {
 <IconButton aria-label="Add Pedals" component={ Link } to="/newPedal" >
         < AddToPhotosIcon/>
       </IconButton>
+
+      <IconButton aria-label="Add Pedals" component={ Link } to="/myPedals" >
+        < AccountBoxIcon/>
+      </IconButton>
+
+
 
 {/* <Button component={ Link } to="/newPedal" variant="contained" color="primary">
     newPedal

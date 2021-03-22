@@ -22,6 +22,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import DetailsPage from '../DetailsPage/DetailsPage';
 import AddNewPedal from '../AddNewPedal/AddNewPedal';
+import MyPedals from '../MyPedals/MyPedals';
 
 
 function App() {
@@ -81,7 +82,7 @@ function App() {
             exact
             path="/myPedals"
           >
-            <AddNewPedal />
+            <MyPedals />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will

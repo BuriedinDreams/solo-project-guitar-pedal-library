@@ -8,11 +8,23 @@ import { useState } from 'react';
 
 
 function MyPedals() {
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  useEffect(() =>{
+    dispatch({
+      type: 'FETCH_USERS_PEDALS',
+      payload: { 
+        id: params.id  // this is getting the pedal id 
+      } 
+    });
+  },[]);
+
 
   return(
     <div>
 
-    <h1>TEST</h1>
+      <h1>TEST</h1>
 
 
 

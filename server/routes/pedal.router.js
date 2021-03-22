@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 
-// Get router -- retrieving the information from the DB
+
 // this GET is to retrieve all of the photos so they may be placed on the DOM.
 router.get('/', (req, res) => {
   
@@ -49,8 +49,7 @@ router.get('/:id', (req, res) => {
 
 })
 
-
-// Add Pedal Post. This will add new photos of guitar pedals
+// Add Pedal Post. This is POSTING all the info from the AddPedalPage
 router.post('/', (req, res) => {
   console.log('req.body in pedal.router: POST',req.body );
 
@@ -103,8 +102,25 @@ router.post('/likes', (req, res) => {
 
 })  
 
+// This GET will retrieve all the pedals the said user created
+router.get('/myPedals', (req, res) => {
+  const queryText = `
+  SELECT "user_id", "pedal_name", "photo"
+FROM "pedal"
+WHERE "user_id" = $1
+;
+  `;
 
+  pool.query(queryText )
+  .then( result => {
+    res.send(result.rows);
+  })
+  .catch(error => {
+    console.log('ERROR: in GET /myPedals pedal.router GET', error);
+    res.sendStatus(500)
+  })
 
+});
 
 // update given photo with photo table
 router.put('/:id', (req, res) => {
