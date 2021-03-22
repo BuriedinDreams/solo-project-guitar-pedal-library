@@ -50,10 +50,30 @@ function* newPedalPost(action) {
       type: 'FETCH_PEDALS'
     })
 
-  } catch{
+  } catch {
     console.log('Error inside newPedalInfoSaga: pedal.saga');
   }
+} // end of newPedalInfoSaga
+
+
+
+function* likedBtnSaga() {
+  yield takeEvery('SEND_YOUTUBE_VIDEO', createLikeSaga);
 }
+
+function createLikeSaga(action) {
+  console.log('See what info is being passed', action.payload);
+
+  try{
+    yield axios.post(`/api/pedal/likes` )
+
+    yield put ({
+      type: 'FETCH_PEDALS'
+    })
+  } catch {
+    console.log('Error inside createLikeSaga: pedal.saga');
+  }
+} // end of createLikeSaga
 
 
 

@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import './DetailsPage.css'
 import ReactPlayer from 'react-player'
 import { useState } from 'react';
-
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
+import { IconButton } from '@material-ui/core';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Grid from '@material-ui/core/Grid'; // this allows me to create grids.
 import { useParams } from 'react-router';
 
@@ -13,7 +17,7 @@ function DetailsPage( ) {
   const params = useParams();
 
   
-  const [youTubeLink, setNewYouTubeLink] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
+  const [ youTubeLink, setNewYouTubeLink ] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
   const [ youTubeTitle, setNewYouTubeTitle ] = useState('') // this is capturing the youtube title created by the user.
 
   const onePedal = useSelector((store) => store.PedalReducer.onePedalReducer);
@@ -23,6 +27,8 @@ function DetailsPage( ) {
   console.log('grab all the youtube vids.', youTubeVids);
 
 // said pedal info store useSelector 
+
+console.log('params.id', params.id); // this params.id is the id of the pedal.
 
 useEffect(() =>{
   dispatch({
@@ -45,11 +51,23 @@ useEffect(() =>{
   } // end handleSubmit
 
 
+  function pedalLiked() {
+    
+    dispatch({
+      type: 'ADD_LIKE',
+      // payload: { id: params.id }
+    })
+
+  }
 
 
   return(
     <div>
       <Grid container >
+        {/* aria-label="Edit Icon" component={ Link } to="/editMode" */}
+      <IconButton >
+        <EditIcon/>
+      </IconButton>
 
         <Grid  item xs={6}>
         <h1>{onePedal.pedal_name}</h1> 
@@ -57,7 +75,14 @@ useEffect(() =>{
 
         <Grid>
         <div><img src={onePedal.photo} alt="" height="200px" /></div>
+        
+        <IconButton onClick={pedalLiked} >
+          <ThumbUpIcon  />
+        </IconButton>
         </Grid>
+
+
+        {/* <p>{onePedal.is_liked}</p> */}
 
         <Grid item xs={2}>
           <h2>Description</h2>
@@ -94,24 +119,12 @@ useEffect(() =>{
         </div>
         </Grid>
 
-
-
-
       </Grid>
           
     </div>
   )
 
 }
-
-
-
-
-
-
-
-
-
 
 
 export default DetailsPage;

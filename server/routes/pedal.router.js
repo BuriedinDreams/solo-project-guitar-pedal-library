@@ -30,15 +30,15 @@ router.get('/:id', (req, res) => {
   console.log('req.params.id PEDAL', req.params.id);
   
   const queryText = `
-  SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal".description_of_pedal, "pedal".photo 
+  SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal".description_of_pedal, "pedal".photo, ( SELECT id FROM "likes" WHERE "user_id" = $1 AND "pedal_id" = $2 ) AS isliked
   FROM "pedal"
   LEFT OUTER JOIN "likes" on "likes".pedal_id = "pedal".id
-  WHERE "pedal".id = $1
+  WHERE "pedal".id = $2
   GROUP BY "pedal".id
-  ;`
+   ;`
   const pedalID = req.params.id
-
-  pool.query(queryText, [pedalID])
+  // we are feeding in the user who clicked the pedal. 
+  pool.query(queryText, [req.user.id, pedalID])
   .then(result =>{
     res.send(result.rows[0]); // This will only grab one row of data.
   })
@@ -50,7 +50,7 @@ router.get('/:id', (req, res) => {
 })
 
 
-// Post new photos of guitar pedals
+// Add Pedal Post. This will add new photos of guitar pedals
 router.post('/', (req, res) => {
   console.log('req.body in pedal.router: POST',req.body );
 
@@ -86,8 +86,22 @@ router.post('/', (req, res) => {
     });
 })
 
+// This is going to post the Like information to the DB.
+router.post('/likes', (req, res) => { // I'm not sure what to put for the '/'
+  console.log('req.body in POST router for Likes ',req.body );
 
+  const queryText = ` INSERT INTO "likes" ( "user_id", "pedal_id" )
+  VALUES ($1, $2 )ON CONFLICT DO NOTHING ; `
 
+  pool.query( queryText, [ req.user.id, req.body.pedalID ] )
+    .then((result) => {
+      res.sendStatus(201);
+  }).catch((error) =>{
+    console.log('Error in pedal.router POST for Likes', error);
+      res.sendStatus(500);
+  }) 
+
+})  
 
 
 
