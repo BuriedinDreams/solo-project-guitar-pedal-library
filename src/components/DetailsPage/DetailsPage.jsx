@@ -73,6 +73,10 @@ useEffect(() =>{
         <h1>{onePedal.pedal_name}</h1> 
         </Grid>
 
+
+        
+
+
         <Grid>
         <div><img src={onePedal.photo} alt="" height="200px" /></div>
         
@@ -80,6 +84,7 @@ useEffect(() =>{
           <ThumbUpIcon  />
         </IconButton>
         </Grid>
+
 
 
         {/* <p>{onePedal.is_liked}</p> */}

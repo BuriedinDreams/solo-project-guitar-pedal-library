@@ -26,12 +26,12 @@ function MyPedals() {
     });
   },[]);
 
-  // function detailsPage(){
-  //   dispatch({
-  //     type: 'FETCH_ONE_PEDAL',
-  //     payload: { id: params.id } // this is getting the id 
-  //   });
-  // }
+  function detailsPage(){
+    // dispatch({
+    //   type: 'FETCH_ONE_PEDAL',
+    //   payload: { id: params.id } // this is getting the id 
+    // });
+  }
 
 
   return(
@@ -49,7 +49,7 @@ function MyPedals() {
 
     {UsersPedals.map(iPedals => {
       return(
-        <div key={iPedals.id} key={iPedals.photo} key={iPedals.pedal_name} >
+        <div key={iPedals.id} key={iPedals.photo} key={iPedals.pedal_name} className="pedalsRow" >
           <div onClick={detailsPage} ><img src={iPedals.photo} alt="" height="200px" /></div>
           <div>{iPedals.pedal_name}</div>
 
