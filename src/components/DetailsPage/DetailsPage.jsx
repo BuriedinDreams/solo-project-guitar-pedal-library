@@ -20,6 +20,8 @@ function DetailsPage( ) {
   const [ youTubeLink, setNewYouTubeLink ] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
   const [ youTubeTitle, setNewYouTubeTitle ] = useState('') // this is capturing the youtube title created by the user.
 
+  const [newPhoto, setNewPhoto] = useState('')
+
   const onePedal = useSelector((store) => store.PedalReducer.onePedalReducer);
   console.log('one pedal useSelector',onePedal);
 
@@ -61,6 +63,21 @@ useEffect(() =>{
   }
 
 
+  function submitNewInfo(event) {
+    console.log('submitNewPhoto', event);
+    event.preventDefault();
+
+    dispatch({
+      type: 'UPDATE_PEDAL_DETAILS',
+      payload: {
+        newPhoto,
+        
+      }
+    })
+
+  }
+
+
   return(
     <div>
       <Grid container >
@@ -74,7 +91,12 @@ useEffect(() =>{
         </Grid>
 
 
-        
+        <form onSubmit={submitNewInfo}>
+        <Grid  >
+        <div><img src={onePedal.photo} alt="" height="200px" onChange={(event) => setNewPhoto(event.target.value)} /></div>
+        <button>Submit</button>
+        </Grid>
+        </form>
 
 
         <Grid>
@@ -96,6 +118,13 @@ useEffect(() =>{
         <Grid item xs={4}>
         <p>{onePedal.description_of_pedal}</p>
         </Grid>
+
+        <form onSubmit={submitNewInfo}>
+          <Grid item xs={4}>
+          <p>{onePedal.description_of_pedal}</p>
+          <button>Save</button>
+          </Grid>
+        </form>
 
 
         <Grid item xs={6}>
