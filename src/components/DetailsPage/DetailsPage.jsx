@@ -19,8 +19,12 @@ function DetailsPage( ) {
   
   const [ youTubeLink, setNewYouTubeLink ] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
   const [ youTubeTitle, setNewYouTubeTitle ] = useState('') // this is capturing the youtube title created by the user.
-
   const [newPhoto, setNewPhoto] = useState('')
+  const [ newDescription, setNewDescription ] = useState('')
+  const [isClicked, setIsClicked] = useState(false)
+  // canelBtn useState(false)
+  // saveBtn useState(false)
+  
 
   const onePedal = useSelector((store) => store.PedalReducer.onePedalReducer);
   console.log('one pedal useSelector',onePedal);
@@ -70,7 +74,8 @@ useEffect(() =>{
     dispatch({
       type: 'UPDATE_PEDAL_DETAILS',
       payload: {
-        newPhoto,
+        newPhoto, 
+        newDescription,
         
       }
     })
@@ -78,36 +83,25 @@ useEffect(() =>{
   }
 
 
+
+  function handleClick() {
+    console.log("I'm Clicked", )
+
+    setIsClicked(!isClicked) // everytime the button is clicked this function will set it to the oppsite action. 
+
+  }
+
+  
+
   return(
     <div>
       <Grid container >
         {/* aria-label="Edit Icon" component={ Link } to="/editMode" */}
-      <IconButton >
+      <IconButton onClick={handleClick} >
         <EditIcon/>
       </IconButton>
 
-        <Grid  item xs={6}>
-        <h1>{onePedal.pedal_name}</h1> 
-        </Grid>
-
-
-        <form onSubmit={submitNewInfo}>
-        <Grid  >
-        <div><img src={onePedal.photo} alt="" height="200px" onChange={(event) => setNewPhoto(event.target.value)} /></div>
-        <button>Submit</button>
-        </Grid>
-        </form>
-
-
-        <Grid>
-        <div><img src={onePedal.photo} alt="" height="200px" /></div>
-        
-        <IconButton onClick={pedalLiked} >
-          <ThumbUpIcon  />
-        </IconButton>
-        </Grid>
-
-
+      
 
         {/* <p>{onePedal.is_liked}</p> */}
 
@@ -115,28 +109,77 @@ useEffect(() =>{
           <h2>Description</h2>
         </Grid>
 
-        <Grid item xs={4}>
-        <p>{onePedal.description_of_pedal}</p>
+        <Grid  item xs={6}>
+        <h1>{onePedal.pedal_name}</h1> 
         </Grid>
 
-        <form onSubmit={submitNewInfo}>
-          <Grid item xs={4}>
-          <p>{onePedal.description_of_pedal}</p>
-          <button>Save</button>
-          </Grid>
-        </form>
+        {/* ? Is showing what will be rendered when the user clicks the edit button.  VS  : is showing what will be default on the DOM */}
+
+        <div>
+          {isClicked
+              ?
+              <div>
+                <form onSubmit={submitNewInfo}>
+                <Grid  >
+                <div><img src={onePedal.photo} alt="" height="200px" onChange={(event) => setNewPhoto(event.target.value)} /></div>
+                <input type="text" placeholder="enter new URL photo here"/>
+                <button>Submit</button>
+                </Grid>
+                </form>
+              </div>
+
+              :
+              <div>
+                <Grid>
+              <div><img src={onePedal.photo} alt="" height="200px" /></div>
+
+              <IconButton onClick={pedalLiked} >
+                <ThumbUpIcon  />
+              </IconButton>
+              </Grid>
+              </div>
+              
+              } 
+
+              {isClicked
+                  ?
+                  <div>
+                  <form onSubmit={submitNewInfo}>
+                  <Grid item xs={4}>
+                    <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
+                  <button>Save</button>
+                  <button> cancel </button>
+                  </Grid>
+                </form>
+                </div>
+                  
+    
+                :
+                <div>
+                  <Grid item xs={4}>
+                    <p>{onePedal.description_of_pedal}</p>
+                  </Grid>
+                </div>
+                
+
+              }
+        </div>
 
 
-        <Grid item xs={6}>
-        <div className="textBox" >
-          <h1>Enter YouTube Link in Textbox</h1>
-          <form onSubmit={handleSubmit} >
-            <input onChange={(event) => setNewYouTubeLink(event.target.value)} type= "text" placeholder= "Youtube Links here"/>
-            <input onChange={(event) => setNewYouTubeTitle(event.target.value)} type= "text" placeholder= "YouTube title of choice"/>
-          <button>Submit</button> 
-          {/* ^^ Once this button is clicked it will submit all the information in the textboxes. */}
-            <ReactPlayer url= {youTubeLink} controls={true} />
-          </form> 
+        {isClicked && (<Grid item xs={6}>
+          <div className="textBox" >
+            <h3>Enter YouTube Link in Textbox</h3>
+            <form onSubmit={handleSubmit} >
+              <input onChange={(event) => setNewYouTubeLink(event.target.value)} type= "text" placeholder= "Youtube Links here"/>
+              <input onChange={(event) => setNewYouTubeTitle(event.target.value)} type= "text" placeholder= "YouTube title of choice"/>
+            <button>Submit</button> 
+            {/* ^^ Once this button is clicked it will submit all the information in the textboxes. */}
+              <ReactPlayer url= {youTubeLink} controls={true} />
+            </form> 
+          </div>
+        </Grid>)}
+          
+        
 
 
           <div>
@@ -151,13 +194,9 @@ useEffect(() =>{
             )
           })}
           </div>
-
-        </div>
         </Grid>
+        </div>
 
-      </Grid>
-          
-    </div>
   )
 
 }
