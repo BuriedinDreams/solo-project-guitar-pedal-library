@@ -28,9 +28,9 @@ const UsersPedalReducer = (state= [], action ) => {
 } // end of UsersPedalReducer
 
 
-const upDateDetails = (state = [], action ) => {
-  if (action.type === '')
-}
+// const upDateDetails = (state = [], action ) => {
+//   if (action.type === '')
+// }
 
 
 

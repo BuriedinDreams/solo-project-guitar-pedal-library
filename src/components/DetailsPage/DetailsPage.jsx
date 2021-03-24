@@ -70,22 +70,44 @@ useEffect(() =>{
   }
 
 
-  function submitNewInfo(event) {
+  function submitNewPhoto(event) {
     console.log('submitNewPhoto', event);
     event.preventDefault();
 
     dispatch({
-      type: 'UPDATE_PEDAL_DETAILS',
+      type: 'UPDATE_PEDAL_PHOTO',
       payload: {
-        newPhoto, 
-        newDescription,
-        youTubeLink,
+        newPhoto,
         id: params.id,
-        youTubeTitle,
-        
       }
     })
+  }
 
+  function submitNewDescription(event) {
+    console.log('submitNewDescription', event);
+    event.preventDefault();
+
+    dispatch({
+      type: 'UPDATE_PEDAL_DESCRIPTION',
+      payload: {
+        newDescription,
+        id: params.id,
+      }
+    })
+  }
+
+  function submitNewYouTubeVideos(event) {
+    console.log('submitNewYoutubeVideos', event);
+    event.preventDefault();
+
+    dispatch({
+      type: 'UPDATE_PEDAL_YOUTUBE',
+      payload: {
+        youTubeLink,
+        youTubeTitle,
+        id: params.id,
+      }
+    })
   }
 
 
@@ -125,11 +147,11 @@ useEffect(() =>{
           {isClicked
               ?
               <div>
-                <form onSubmit={submitNewInfo}>
+                <form onSubmit={submitNewPhoto}>
                 <Grid  >
                 <div><img src={onePedal.photo} alt="" height="200px" onChange={(event) => setNewPhoto(event.target.value)} /></div>
                 <input type="text" placeholder="enter new URL photo here"/>
-                <button>Submit</button>
+                <button>Save</button>
                 </Grid>
                 </form>
               </div>
@@ -162,11 +184,10 @@ useEffect(() =>{
               {isClicked
                   ?
                   <div>
-                  <form onSubmit={submitNewInfo}>
+                  <form onSubmit={submitNewDescription}>
                   <Grid item xs={4}>
                     <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
                   <button>Save</button>
-                  <button> cancel </button>
                   </Grid>
                 </form>
                 </div>
@@ -187,10 +208,10 @@ useEffect(() =>{
         {isClicked && (<Grid item xs={6}>
           <div className="textBox" >
             <h3>Enter YouTube Link in Textbox</h3>
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={submitNewYouTubeVideos} >
               <input onChange={(event) => setNewYouTubeLink(event.target.value)} type= "text" placeholder= "Youtube Links here"/>
               <input onChange={(event) => setNewYouTubeTitle(event.target.value)} type= "text" placeholder= "YouTube title of choice"/>
-            <button>Submit</button> 
+            <button>Save</button> 
             {/* ^^ Once this button is clicked it will submit all the information in the textboxes. */}
               <ReactPlayer url= {youTubeLink} controls={true} />
             </form> 

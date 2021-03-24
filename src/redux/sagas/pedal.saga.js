@@ -94,24 +94,70 @@ console.log('Fetching users pedals');
 } // end of fetchPedal Saga
 
 
-function* upDatePedalsSaga() {
-  yield takeEvery ('UPDATE_PEDAL_DETAILS', PedalInfoUpdate)
+function* updateSaga() {
+  yield takeEvery ('UPDATE_PEDAL_PHOTO', PedalPhotoUpdate)
+  yield takeEvery ('UPDATE_PEDAL_DESCRIPTION', PedalDescriptionUpdate)
+  yield takeEvery ('UPDATE_PEDAL_YOUTUBE', PedalYouTubeUpdate )
 }
 
-function* PedalInfoUpdate(action) {
-  console.log('update the pedals', action.payload.update);
+function* PedalPhotoUpdate(action) {
+  console.log('update the photo', action.payload);
+
   try{
-    yield axios.put (`/api/pedal/update/`)
+    yield axios.put (`/api/pedal/updatePhoto`,action.payload)
+
+    yield put({
+      type: 'FETCH_ONE_PEDAL',
+      payload: action.payload.id
+    })
+
   }
   catch (error) {
-    console.log('Saga PUT error', error);
+    console.log('Saga PUT error in photo', error);
   }
 } // 
 
 
+function* PedalDescriptionUpdate(action) {
+  console.log('update the description', action.payload);
+  
+  try{
+    yield axios.put (`/api/pedal/updateDescription`,action.payload)
+    
+    yield put({
+      type: 'FETCH_ONE_PEDAL',
+      payload: action.payload.id
+    })
+  }
+  catch (error) {
+    console.log('Saga PUT error in description', error);
+  }
+}
+
+
+function* PedalYouTubeUpdate(action) {
+  console.log('update the YouTube stuff', action.payload);
+
+  try{
+    yield axios.put (`/api/pedal/updateYouTube`,action.payload)
+
+    yield put({
+      type: 'FETCH_ONE_PEDAL',
+      payload: action.payload.id
+    })
+  }
+  catch (error) {
+    console.log('Saga PUT error in description', error);
+  }
+}
 
 
 
 
 
-export { pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga, myPedalsSaga,  upDatePedalsSaga  };
+
+
+
+
+
+export { pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga, myPedalsSaga, updateSaga };

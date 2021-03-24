@@ -124,51 +124,134 @@ router.get('/myPedals', (req, res) => {
 
 });
 
-// update given photo with photo table
-router.put('/update', (req, res) => {
-  console.log('req.params', req.params);
+// 
+
+router.put('/updatePhoto', (req, res) => {
   console.log('req.body', req.body);
-  let pedalId = req.params.id;
-  let description = req.body.description;
-  let photo = req.body.photo;
-  const queryText = `
+  let pedalId = req.body.id;
+  let photo = req.body.newPhoto;
+
+  const queryText =`
   UPDATE "pedal"
-  SET "description_of_pedal" = $1, "photo" = $2
-  WHERE "id" = $3 AND "user_id" = $4  -- this will catch if there are multiples of the same pedal.
-  ;
-    `;
-  pool.query(queryText, [ description, photo, pedalId, req.user.id ])
-    .then((result) => {
-      console.log('Successful PUT');
-      let youTubeLinks = req.body.Links;
-      let youTubeTitleName = req.body.youTubeTitleName;
-      let pedalId = req.params.id;
-      
+  SET "photo" = $1
+  WHERE "id" = $2 and "user_id" = $3
+  ;`;
 
-      const youTubeUpdateQuery =`
-      UPDATE "youtube_links"
-      SET "youtube_links" = $1, "youtube_link_title" = $2
-      WHERE "pedal_id" = $3 AND "user_id" = $4
-      ;
-        `;
+  pool.query(queryText, [photo, pedalId, req.user.id])
+  .then(result =>{
+    console.log('Successful PUT in NewPhoto');
+    res.sendStatus(200);
+  })
+  .catch((error) => {
+    console.log('Error in PUT in NewPhoto', error);
+    res.sendStatus(500);
+  })
 
-    pool.query(youTubeUpdateQuery, [youTubeLinks, youTubeTitleName, pedalId, req.user.id])
-    .then(result =>{
-      console.log('Successful PUT');
-    })
-    .catch((error) => {
-      console.log('Error in PUT Youtube', error);
-      res.sendStatus(500);
-    })
+})
 
-    })
-    .catch((err) => {
-      console.log('Error in PUT PEDAL', err);
-      res.sendStatus(500);
-    })
+router.put('/updateDescription', (req, res) => {
+  console.log('req.body', req.body);
+  let pedalId = req.body.id;
+  let description = req.body.newDescription;
 
-  res.sendStatus(200);
-});
+  const queryText =`
+  UPDATE "pedal"
+SET "description_of_pedal" = $1
+WHERE "id" = $2 and "user_id" = $3
+;`;
+
+  pool.query(queryText, [description, pedalId, req.user.id])
+  .then(result =>{
+    console.log('Successful PUT in updateDescription');
+    res.sendStatus(200);
+  })
+  .catch((error) => {
+    console.log('Error in PUT updateDescription', error);
+    res.sendStatus(500);
+  })
+
+})
+
+
+router.put('/updateYouTube', (req, res) => {
+  console.log('req.body', req.body);
+  let pedalId = req.body.id;
+  let youTubeLink = req.body.youTubeLink;
+  let youTubeTitle = req.body.youTubeTitle;
+
+
+
+  const queryText =`
+  UPDATE "youtube_links"
+  SET "youtube_links" = $1, "youtube_link_title" = $2
+  WHERE "pedal_id" = $3 AND "user_id" = $4
+  ;`;
+
+  pool.query(queryText, [youTubeLink, pedalId, req.user.id])
+  .then(result =>{
+    console.log('Successful PUT in YouTube');
+    res.sendStatus(200);
+  })
+  .catch((error) => {
+    console.log('Error in PUT YouTube', error);
+    res.sendStatus(500);
+  })
+
+})
+
+
+
+
+
+
+
+
+
+
+// router.put('/update', (req, res) => {
+//   console.log('req.body', req.body);
+//   let pedalId = req.body.id;
+//   let description = req.body.newDescription; // This right side needs to match on dispatch. ie. newDesciprtion 
+//   let photo = req.body.newPhoto;
+
+//   const queryText = `
+//   UPDATE "pedal"
+//   SET "description_of_pedal" = $1, "photo" = $2
+//   WHERE "id" = $3 AND "user_id" = $4  -- this will catch if there are multiples of the same pedal.
+//   ;
+//     `;
+//   pool.query(queryText, [ description, photo, pedalId, req.user.id ])
+//     .then((result) => {
+//         console.log('Successful PUT');
+//         let youTubeLinks = req.body.youTubeLink; //  req.body. youtubeLink | this name has to match was is being fed through the object.
+//         let youTubeTitleName = req.body.youTubeTitle;
+//         let pedalId = req.body.id;
+        
+
+//         const youTubeUpdateQuery =`
+//         UPDATE "youtube_links"
+//         SET "youtube_links" = $1, "youtube_link_title" = $2
+//         WHERE "pedal_id" = $3 AND "user_id" = $4
+//         ;
+//           `;
+
+//       pool.query(youTubeUpdateQuery, [youTubeLinks, youTubeTitleName, pedalId, req.user.id])
+//       .then(result =>{
+//         console.log('Successful PUT');
+//       })
+//       .catch((error) => {
+//         console.log('Error in PUT Youtube', error);
+//         res.sendStatus(500);
+//       })
+
+//     })
+//     .catch((err) => {
+//       console.log('Error in PUT PEDAL', err);
+//       res.sendStatus(500);
+//     })
+
+//   res.sendStatus(200);
+// });
 
 
 // this delete will be able to delete a photo 

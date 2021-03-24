@@ -2,7 +2,7 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import {pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga, myPedalsSaga, upDatePedalsSaga } from './pedal.saga'
+import {pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga, myPedalsSaga, updateSaga } from './pedal.saga'
 import {sendYouTubeVideosSaga,fetchYouTubeVideosSaga } from './youtube.saga'
 
 
@@ -26,7 +26,7 @@ export default function* rootSaga() {
     sendYouTubeVideosSaga(),
     fetchYouTubeVideosSaga(),
     myPedalsSaga(),
-    upDatePedalsSaga(),
-    
+    updateSaga(),
+
   ]);
 }
