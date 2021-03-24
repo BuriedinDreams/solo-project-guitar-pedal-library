@@ -19,7 +19,7 @@ function DetailsPage( ) {
   
   const [ youTubeLink, setNewYouTubeLink ] = useState('') // this will capture what the users puts into the text box and use that for the ReactPlayer.
   const [ youTubeTitle, setNewYouTubeTitle ] = useState('') // this is capturing the youtube title created by the user.
-  const [newPhoto, setNewPhoto] = useState('')
+  const [newPhoto, setNewPhoto] = useState('') // this is capturing the new photo the user enters.
   const [ newDescription, setNewDescription ] = useState('')
   const [isClicked, setIsClicked] = useState(false)
   // canelBtn useState(false)
@@ -76,6 +76,9 @@ useEffect(() =>{
       payload: {
         newPhoto, 
         newDescription,
+        youTubeLink,
+        id: params.id,
+        youTubeTitle,
         
       }
     })

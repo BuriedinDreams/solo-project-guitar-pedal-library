@@ -130,10 +130,12 @@ router.put('/:id', (req, res) => {
   console.log('req.body', req.body);
   let pedalId = req.params.id;
   let pedalPhoto = req.body; // not sure what to do for this one.
-  const queryText = `UPDATE "photo" 
-                SET "pedal_id" = (SELECT "pedal_id".id FROM "photo"
-                WHERE "photo".photo = '${pedalPhoto}')
-                WHERE "photo".id = $1;`
+  const queryText = `
+  UPDATE "photo" 
+  SET "pedal_id" = (SELECT "pedal_id".id FROM "photo"
+  WHERE "photo".photo = '${pedalPhoto}')
+  WHERE "photo".id = $1;
+  `
   pool.query(queryText, [pedalPhoto, pedalId ])
     .then((result) => {
       console.log('Successful PUT');
