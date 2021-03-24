@@ -28,6 +28,11 @@ const UsersPedalReducer = (state= [], action ) => {
 } // end of UsersPedalReducer
 
 
+const upDateDetails = (state = [], action ) => {
+  if (action.type === '')
+}
+
+
 
 export default combineReducers({
   allPedalsReducer,

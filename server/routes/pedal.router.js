@@ -106,10 +106,10 @@ router.post('/likes', (req, res) => {
 router.get('/myPedals', (req, res) => {
   const queryText = `
   SELECT *
-FROM "pedal"
-WHERE "user_id" = $1
-;
-  `;
+  FROM "pedal"
+  WHERE "user_id" = $1
+  ;
+    `;
 
   pool.query(queryText, [req.user.id ])
   .then( result => {
@@ -125,24 +125,45 @@ WHERE "user_id" = $1
 });
 
 // update given photo with photo table
-router.put('/:id', (req, res) => {
+router.put('/update', (req, res) => {
   console.log('req.params', req.params);
   console.log('req.body', req.body);
   let pedalId = req.params.id;
-  let pedalPhoto = req.body; // not sure what to do for this one.
+  let description = req.body.description;
+  let photo = req.body.photo;
   const queryText = `
-  UPDATE "photo" 
-  SET "pedal_id" = (SELECT "pedal_id".id FROM "photo"
-  WHERE "photo".photo = '${pedalPhoto}')
-  WHERE "photo".id = $1;
-  `
-  pool.query(queryText, [pedalPhoto, pedalId ])
+  UPDATE "pedal"
+  SET "description_of_pedal" = $1, "photo" = $2
+  WHERE "id" = $3 AND "user_id" = $4  -- this will catch if there are multiples of the same pedal.
+  ;
+    `;
+  pool.query(queryText, [ description, photo, pedalId, req.user.id ])
     .then((result) => {
       console.log('Successful PUT');
-      res.sendStatus(200);
+      let youTubeLinks = req.body.Links;
+      let youTubeTitleName = req.body.youTubeTitleName;
+      let pedalId = req.params.id;
+      
+
+      const youTubeUpdateQuery =`
+      UPDATE "youtube_links"
+      SET "youtube_links" = $1, "youtube_link_title" = $2
+      WHERE "pedal_id" = $3 AND "user_id" = $4
+      ;
+        `;
+
+    pool.query(youTubeUpdateQuery, [youTubeLinks, youTubeTitleName, pedalId, req.user.id])
+    .then(result =>{
+      console.log('Successful PUT');
+    })
+    .catch((error) => {
+      console.log('Error in PUT Youtube', error);
+      res.sendStatus(500);
+    })
+
     })
     .catch((err) => {
-      console.log('Error in PUT', err);
+      console.log('Error in PUT PEDAL', err);
       res.sendStatus(500);
     })
 

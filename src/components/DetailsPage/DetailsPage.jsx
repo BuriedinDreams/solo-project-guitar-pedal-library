@@ -22,6 +22,7 @@ function DetailsPage( ) {
   const [newPhoto, setNewPhoto] = useState('') // this is capturing the new photo the user enters.
   const [ newDescription, setNewDescription ] = useState('')
   const [isClicked, setIsClicked] = useState(false)
+  const [colorChange, setColorChange] =useState(true) // this is will make the color of the button change to blue, once clicked.
   // canelBtn useState(false)
   // saveBtn useState(false)
   
@@ -59,6 +60,8 @@ useEffect(() =>{
 
   function pedalLiked() {
     
+    setColorChange(false)
+    
     dispatch({
       type: 'ADD_LIKE',
       payload: { id: params.id }
@@ -91,7 +94,7 @@ useEffect(() =>{
     console.log("I'm Clicked", )
 
     setIsClicked(!isClicked) // everytime the button is clicked this function will set it to the oppsite action. 
-
+  
   }
 
   
@@ -133,14 +136,26 @@ useEffect(() =>{
 
               :
               <div>
-                <Grid>
-              <div><img src={onePedal.photo} alt="" height="200px" /></div>
-
-              <IconButton onClick={pedalLiked} >
+                {colorChange
+                ?
+                <div>
+                  <Grid>
+                <div><img src={onePedal.photo} alt="" height="200px" /></div>
+                <IconButton onClick={pedalLiked} >
                 <ThumbUpIcon  />
               </IconButton>
-              </Grid>
-              </div>
+                  </Grid>
+                </div>
+                
+                  :
+                <Grid>
+                  <div><img src={onePedal.photo} alt="" height="200px" /></div>
+                  <IconButton onClick={pedalLiked}  color="primary">
+                    <ThumbUpIcon  />
+                  </IconButton>
+                </Grid>
+            }
+            </div>
               
               } 
 

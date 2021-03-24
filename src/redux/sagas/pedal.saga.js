@@ -94,7 +94,24 @@ console.log('Fetching users pedals');
 } // end of fetchPedal Saga
 
 
+function* upDatePedalsSaga() {
+  yield takeEvery ('UPDATE_PEDAL_DETAILS', PedalInfoUpdate)
+}
+
+function* PedalInfoUpdate(action) {
+  console.log('update the pedals', action.payload.update);
+  try{
+    yield axios.put (`/api/pedal/update/`)
+  }
+  catch (error) {
+    console.log('Saga PUT error', error);
+  }
+} // 
 
 
 
-export { pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga, myPedalsSaga  };
+
+
+
+
+export { pedalSaga, singlePedalSaga, newPedalInfoSaga, likedBtnSaga, myPedalsSaga,  upDatePedalsSaga  };
