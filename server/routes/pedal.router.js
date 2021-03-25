@@ -70,6 +70,9 @@ router.post('/', (req, res) => {
 
         pool.query( youTubeQuery, [req.user.id, pedalId, req.body.youTubeLink, req.body.youTubeTitle ] )  // this is retrieving the information from newPedalPage.
         .then((result) => {
+          const youTubeInfo = result.rows;
+          console.log('pedal.router> post / > youTubeInfo', youTubeInfo);
+
           res.sendStatus(201);
         })
         .catch((error) => {
