@@ -7,7 +7,8 @@ const router = express.Router();
 // this GET is to retrieve all of the photos so they may be placed on the DOM.
 router.get('/', (req, res) => {
   
-  const query = `SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal"
+  const query = `
+  SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal"
   description_of_pedal, "pedal".photo 
   FROM "pedal"
   LEFT OUTER JOIN "likes" on "likes".pedal_id = "pedal".id
@@ -49,7 +50,7 @@ router.get('/onePedal/:id', (req, res) => {
 
 })
 
-// Add Pedal Post. This is POSTING all the info from the AddPedalPage
+// This POST is posting all the info from the AddPedalPage
 router.post('/', (req, res) => {
   console.log('req.body in pedal.router: POST',req.body );
 
@@ -127,8 +128,7 @@ router.get('/myPedals', (req, res) => {
 
 });
 
-// 
-
+// This Put/Update route only updates the Photo when the user is in edit mode on the details page.
 router.put('/updatePhoto', (req, res) => {
   console.log('req.body', req.body);
   let pedalId = req.body.id;
