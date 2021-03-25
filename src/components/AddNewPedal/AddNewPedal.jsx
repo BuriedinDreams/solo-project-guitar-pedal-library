@@ -39,8 +39,8 @@ function AddNewPedal() {
   return(
     <div >
       <form onSubmit={handleSubmit} >
-      <input onChange={(event) => setPedalPhoto(event.target.value)} type= "text" placeholder= "Guitar Pedal URL Link" />
-        <input onChange={(event) => setPedalName(event.target.value)} type= "text" placeholder= "Enter The Pedal Name Here" />
+      <input onChange={(event) => setPedalPhoto(event.target.value)} type= "text" placeholder= "Guitar Pedal Image Link" />
+        <input onChange={(event) => setPedalName(event.target.value)} type= "text" placeholder= "Enter The Pedal Name" />
         <textarea onChange={(event) => setNewDescription(event.target.value)}  
           id="descriptionBox"
           rows="8"
