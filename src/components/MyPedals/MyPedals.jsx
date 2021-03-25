@@ -26,17 +26,18 @@ function MyPedals() {
     });
   },[]);
 
-  function detailsPage(){
-    // dispatch({
-    //   type: 'FETCH_ONE_PEDAL',
-    //   payload: { id: params.id } // this is getting the id 
-    // });
+  function handleDelete(pedalID){
+    dispatch({
+      type: 'DELETE_PEDAL',
+      payload: { pedalID }
+      //  payload: { id: params.id } // this is getting the id 
+    });
   }
 
 
   return(
     <div>
-        <Grid container justify="center" >
+        <Grid container justify="center"  >
 
           <Grid item xs={6}>
           <div className="Top-Banner-myPedals" justify="center" >
@@ -49,11 +50,13 @@ function MyPedals() {
 
     {UsersPedals.map(iPedals => {
       return(
+        // <form onSubmit={handleDelete}>
         <div key={iPedals.id} key={iPedals.photo} key={iPedals.pedal_name} className="pedalsRow" >
-          <div onClick={detailsPage} ><img src={iPedals.photo} alt="" height="200px" /></div>
+          <div ><img src={iPedals.photo} alt="" height="200px" /></div>
+          <button onClick= {(event) => handleDelete(iPedals.id)} >Delete</button>
           <div>{iPedals.pedal_name}</div>
-
         </div>
+        // </form>
       )
     })}
     </div>

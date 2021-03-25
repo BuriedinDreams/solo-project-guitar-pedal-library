@@ -2,6 +2,8 @@ const pool = require('../modules/pool');
 const express = require('express');
 const router = express.Router();
 
+const {rejectUnauthenticated} = require('../modules/authentication-middleware')
+
 
 
 // this GET is to retrieve all of the photos so they may be placed on the DOM.
@@ -258,12 +260,23 @@ router.put('/updateYouTube', (req, res) => {
 
 
 // this delete will be able to delete a photo 
-router.delete('/:id', (req, res) => {
-  const queryText = 'DELETE FROM "photo" WHERE id=$1';
+router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
+  
+  const queryText = 'DELETE FROM "pedal" WHERE id=$1'; //cascade? | ON Delete cascade ....
+  
   pool.query(queryText, [req.params.id])
-    .then(() => { res.sendStatus(200); })
+    .then((result) => {
+      // const youTubeQueryText =`
+      // DELETE FROM "youtube_links" WHERE id=$1
+      // `
+      // pool.query( youTubeQueryText, [req.params.id] )
+      
+      
+       res.sendStatus(200); 
+
+    })
     .catch((error) => {
-      console.log('Error deleting a photo in pedal.router', error);
+      console.log('Error deleting a pedal in pedal.router', error);
       res.sendStatus(500);
     });
 });
