@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
 // This GET route will grab only 1 pedal from the DOM.
 router.get('/onePedal/:id', (req, res) => {
-  console.log('req.params.id PEDAL', req.params.id);
+  console.log(' GET /onePedal/:id req.params.id ', req.params.id);
   
   const queryText = `
   SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal".description_of_pedal, "pedal".photo, ( SELECT id FROM "likes" WHERE "user_id" = $1 AND "pedal_id" = $2 ) AS isliked
@@ -187,7 +187,7 @@ router.put('/updateYouTube', (req, res) => {
   WHERE "pedal_id" = $3 AND "user_id" = $4
   ;`;
 
-  pool.query(queryText, [youTubeLink, pedalId, req.user.id])
+  pool.query(queryText, [youTubeLink, youTubeTitle, pedalId, req.user.id])
   .then(result =>{
     console.log('Successful PUT in YouTube');
     res.sendStatus(200);

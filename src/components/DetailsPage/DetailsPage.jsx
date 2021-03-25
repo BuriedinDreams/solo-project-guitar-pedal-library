@@ -97,7 +97,7 @@ useEffect(() =>{
   }
 
   function submitNewYouTubeVideos(event) {
-    console.log('submitNewYoutubeVideos', event);
+    console.log('submitNewYouTubeVideos', event);
     event.preventDefault();
 
     dispatch({
@@ -149,8 +149,8 @@ useEffect(() =>{
               <div>
                 <form onSubmit={submitNewPhoto}>
                 <Grid  >
-                <div><img src={onePedal.photo} alt="" height="200px" onChange={(event) => setNewPhoto(event.target.value)} /></div>
-                <input type="text" placeholder="enter new URL photo here"/>
+                <div><img src={onePedal.photo} alt="" height="200px"  /></div>
+                <input onChange={(event) => setNewPhoto(event.target.value)} type="text" placeholder="enter new URL photo here" value={newPhoto} />
                 <button>Save</button>
                 </Grid>
                 </form>
@@ -222,12 +222,12 @@ useEffect(() =>{
 
 
           <div>
-          {youTubeVids.map(ivideo => {
+          {youTubeVids.map(iVideo => {
             return(
-              <div key={ivideo.id} key={ivideo.youTubeLink} key={ivideo.youtube_link_title} >
+              <div key={iVideo.id} key={iVideo.youTubeLink} key={iVideo.youtube_link_title} >
                 <br/>
-                <h3>{ivideo.youtube_link_title}</h3>
-              < ReactPlayer url={ivideo.youtube_links} controls={true} />
+                <h3>{iVideo.youtube_link_title}</h3>
+              < ReactPlayer url={iVideo.youtube_links} controls={true} />
             
             </div>
             )

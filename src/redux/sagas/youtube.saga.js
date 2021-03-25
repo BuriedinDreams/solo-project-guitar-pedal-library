@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function* sendYouTubeVideosSaga() {
   yield takeEvery('SEND_YOUTUBE_VIDEO',youTubeVideosSaga );
+  yield takeEvery('FETCH_YOUTUBE_VIDEO', fetchYouTubeVideosSaga)
 } // end of singlePedalSaga
 
 function* youTubeVideosSaga(action) {
@@ -21,12 +22,15 @@ function* youTubeVideosSaga(action) {
 
 
 
-function* fetchYouTubeVideosSaga(){
+
+function* fetchYouTubeVideosSaga(action){
   try {
-    let response = yield axios.get('/api/youTube');
+    let response = yield axios.get(`/api/youTube/${action.payload}`);
+    // this axios get this getting the information from the youtube.router get
+    console.log('what is the response', response.data);
     yield put({
-      type: 'SET_YOUTUBE_VIDEO',
-      payload: response.data,
+      type: 'SET_YOUTUBE_VIDEO', // this is in the youtube.reducer.
+      payload: response.data, // this carrying the sql info.
     });
   } catch (err) {
     console.log('fetch error', err);

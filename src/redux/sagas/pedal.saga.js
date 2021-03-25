@@ -27,7 +27,10 @@ function* singlePedalSaga() {
 function* fetchOnePedal(action) {
   try{
     const onePedal = yield axios.get(`/api/pedal/onePedal/${action.payload.id}`) 
+    console.log('one Pedal', onePedal);
+    console.log('onePedal.data', onePedal.data);
     yield put ({type: 'SET_ONE_PEDAL', payload: onePedal.data})
+    yield put ({ type: 'FETCH_YOUTUBE_VIDEO', payload: onePedal.data.id })
 
   } catch(error){
     console.log('Error in FetchOnePedal',error)
@@ -108,7 +111,7 @@ function* PedalPhotoUpdate(action) {
 
     yield put({
       type: 'FETCH_ONE_PEDAL',
-      payload: action.payload.id
+      payload: action.payload
     })
 
   }
@@ -126,7 +129,7 @@ function* PedalDescriptionUpdate(action) {
     
     yield put({
       type: 'FETCH_ONE_PEDAL',
-      payload: action.payload.id
+      payload: action.payload
     })
   }
   catch (error) {
@@ -143,7 +146,7 @@ function* PedalYouTubeUpdate(action) {
 
     yield put({
       type: 'FETCH_ONE_PEDAL',
-      payload: action.payload.id
+      payload: action.payload
     })
   }
   catch (error) {

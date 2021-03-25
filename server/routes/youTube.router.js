@@ -24,15 +24,25 @@ router.post('/', (req, res) => {
 
 });
 
-// This GET is going to retrieve all the data for the youtube videos
-router.get('/', (req, res) =>{
-  const youTubeVideoID = req.params.id
-  
-  queryText=`SELECT * FROM "youtube_links";`
+// This GET is going to retrieve said youtube videos that match the id.
+router.get('/:id', (req, res) =>{
+  console.log(' GET /:id req.body', req.body);
+  console.log('GET /:id req.params', req.params);
+  console.log('GET /:id req.params.id', req.params.id);
 
-  pool.query(queryText, ) //[youTubeVideoID]
+  // console.log('req.body.id', req.body);
+  
+  queryText=`
+  SELECT * 
+  FROM "youtube_links"
+  WHERE "pedal_id" = $1 AND "user_id" =$2
+  ;`
+
+  pool.query(queryText,[req.params.id, req.user.id] ) 
   .then(result =>{
-    res.send(result.rows); 
+    console.log('result.rows', result.rows);
+    res.send(result.rows); // might be result.rows[0]
+    // ^ this is sending the information we asked for.
   })
   .catch(error => {
     console.log('ERROR IN: youtube.router, GET', error);
@@ -40,16 +50,6 @@ router.get('/', (req, res) =>{
   })
 
 });
-
-
-
-
-
-
-
-
-
-
 
 
 
