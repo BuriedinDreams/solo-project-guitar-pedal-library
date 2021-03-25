@@ -80,6 +80,14 @@ WHERE "pedal".id = $2
 GROUP BY "pedal".id
 ;
 
+-- example data
+SELECT count("likes".id) as "Likes", "pedal".id, "pedal".pedal_name, "pedal".description_of_pedal, "pedal".photo, ( SELECT id FROM "likes" WHERE "user_id" = '1' AND "pedal_id" = '3' ) AS isliked
+FROM "pedal"
+LEFT OUTER JOIN "likes" on "likes".pedal_id = "pedal".id
+WHERE "pedal".id = '3'
+GROUP BY "pedal".id
+;
+
 
 -- This POST is posting all the info from the AddPedalPage
 -- This has another query inside of this post
@@ -87,19 +95,41 @@ GROUP BY "pedal".id
 
 --First Query makes the pedal information
 INSERT INTO "pedal" ( "user_id", "pedal_name", "description_of_pedal", "photo" )
-VALUES ( $1, $2, $3, $4 ) RETURNING "id" ;
+VALUES ( $1, $2, $3, $4 ) RETURNING "id" 
+;
+
+-- example data
+INSERT INTO "pedal" ( "user_id", "pedal_name", "description_of_pedal", "photo" )
+VALUES ( 
+'1', 'TS9 Tube Screamer', 
+'This pedal is green and is one of the most iconic pedals in history. Most OverDrive pedals are in some way influenced by this said pedal.',
+'https://media.sweetwater.com/api/i/ha-a5b2f4b2a4a1bdee__hmac-569768f54171c2ef16206f437972d6232126d6c0/images/items/750/TS9-large.jpg' )
+RETURNING "id" 
+;
 
 -- This second one is for the YouTube videos
 INSERT INTO "youtube_links" ("user_id", "pedal_id", "youtube_links", "youtube_link_title")
-VALUES ($1, $2, $3, $4) ;
-    
+VALUES ($1, $2, $3, $4) 
+;
+
+
+-- example data
+INSERT INTO "youtube_links" ("user_id", "pedal_id", "youtube_links", "youtube_link_title")
+VALUES ('1', '3', 'https://youtu.be/HvyK6yHShH4' , 'TS9 OverDrive Pedal') 
+;
 
 
 -- This is going to post the Like information to the DB.
 -- router.post('/likes'
 
 INSERT INTO "likes" ( "user_id", "pedal_id" )
-VALUES ($1, $2 )ON CONFLICT DO NOTHING ;
+VALUES ($1, $2 )ON CONFLICT DO NOTHING 
+;
+
+-- example data
+INSERT INTO "likes" ( "user_id", "pedal_id" )
+VALUES ('1', '3' )ON CONFLICT DO NOTHING 
+;
 
 
 
@@ -112,6 +142,12 @@ FROM "pedal"
 WHERE "user_id" = $1
 ;
 
+-- example data
+SELECT *
+FROM "pedal"
+WHERE "user_id" = '1'
+;
+
 
 
 -- This Put/Update route only updates the Photo when the user is in edit mode on the details page.
@@ -122,6 +158,11 @@ SET "photo" = $1
 WHERE "id" = $2 and "user_id" = $3
 ;
 
+-- example data
+UPDATE "pedal"
+SET "photo" = 'https://media.sweetwater.com/api/i/ha-a5b2f4b2a4a1bdee__hmac-569768f54171c2ef16206f437972d6232126d6c0/images/items/750/TS9-large.jpg'
+WHERE "id" = '3' and "user_id" = 1
+;
 
 
 -- This Put/Update route only updates the description when the user is in edit mode on the details page.
@@ -131,6 +172,16 @@ SET "description_of_pedal" = $1
 WHERE "id" = $2 and "user_id" = $3
 ;
 
+-- example data
+UPDATE "pedal"
+SET "description_of_pedal" = 
+'The Tube Screamer, which various reviews give the honorific "legendary", 
+has been used by many guitarists to create their signature sound, and is one of the most successful, 
+widely copied, and custom-modified ("modded") overdrive pedals in the history of the electric guitar.'
+WHERE "id" = '3' and "user_id" = 1
+;
+
+
 -- This Put/Update route only updates the YouTube Videos when the user is in edit mode on the details page.
 -- router.put('/updateYouTube
 UPDATE "youtube_links"
@@ -138,7 +189,11 @@ SET "youtube_links" = $1, "youtube_link_title" = $2
 WHERE "pedal_id" = $3 AND "user_id" = $4
 ;
 
-
+-- example
+UPDATE "youtube_links"
+SET "youtube_links" = 'https://www.youtube.com/watch?v=AbKe_nash-g', "youtube_link_title" = 'The Blues tone, in green'
+WHERE "pedal_id" = '3' AND "user_id" = '1'
+;
 ----------------------------------------
 -- Everything below is in a different router called youTube.router
 
@@ -158,3 +213,4 @@ SELECT *
 FROM "youtube_links"
 WHERE "pedal_id" = $1 AND "user_id" =$2
 ;
+
