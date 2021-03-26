@@ -53,6 +53,8 @@ function* newPedalPost(action) {
       type: 'FETCH_PEDALS'
     })
 
+    
+
   } catch {
     console.log('Error inside newPedalInfoSaga: pedal.saga');
   }
@@ -166,6 +168,10 @@ function* DeletePedalSaga(action) {
     yield put ({
       type: 'SET_USERS_PEDALS',
       payload: action.payload
+    })
+
+    yield put({
+      type: 'FETCH_PEDALS',
     })
   
   }

@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './PedalItem.css'
 
+import Grid from '@material-ui/core/Grid'; // this allows me to create grids.
 
 
 function pedalItem( {pedals} ) { // this pedals is a parameter gotten from the on click event.
@@ -19,11 +20,16 @@ function goToDetailsPage(id) {
 
     return (
 
+
+      <Grid container direction="row"  >
+
       <div className="pedalImg" >
         <div > <img src={pedals.photo} alt="image of pedal" height="200px" onClick={() => goToDetailsPage(pedals.id)} /> </div>
         <div>{pedals.pedal_name}</div> 
         <div>Has {pedals.Likes} Likes!</div>
       </div>
+
+      </Grid>
 
     )
 

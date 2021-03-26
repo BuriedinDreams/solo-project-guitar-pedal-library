@@ -33,8 +33,8 @@ function UserPage() {
     newPedal
 </Button> */}
 
-      <Grid container justify="center" >
-        <Grid item xs={6}>
+      <Grid container direction="row" justify="center"  >
+        <Grid item xs={6}  >
           <div className="Top-Banner">
             <h2>Welcome to the Guitar Pedal Library</h2>
             <p> checkout all of the pedals! </p>

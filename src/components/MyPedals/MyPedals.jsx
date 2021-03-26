@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Grid from '@material-ui/core/Grid'; // this allows me to create grids
 import { useParams } from 'react-router';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -13,6 +14,7 @@ import { useState } from 'react';
 function MyPedals() {
   const dispatch = useDispatch();
   const params = useParams();
+  const history = useHistory(); // this is used get to the next page
  
 
   const UsersPedals = useSelector((store) => store.PedalReducer.UsersPedalReducer);
@@ -32,8 +34,12 @@ function MyPedals() {
     dispatch({
       type: 'DELETE_PEDAL',
       payload: pedalID
-      //  payload: { id: params.id } // this is getting the id 
     });
+
+  
+    
+    history.push('/#/user')
+    
   }
 
 

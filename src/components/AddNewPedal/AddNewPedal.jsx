@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Grid from '@material-ui/core/Grid'; // this allows me to create grids
 import { useParams } from 'react-router';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -11,6 +12,8 @@ import { useState } from 'react';
 function AddNewPedal() {
   const dispatch = useDispatch();
   const params = useParams();
+  const history = useHistory(); // this is used get to the next page
+
 
   const [pedalPhoto, setPedalPhoto] = useState('')
   const [ pedalName, setPedalName] = useState('') // This is capturing what the user inputs for the pedal name
@@ -24,13 +27,11 @@ function AddNewPedal() {
 
     dispatch({
       type: 'SEND_PEDAL_INFO',
-      payload: { pedalName, description, pedalPhoto, youTubeLink, youTubeTitle }
+      payload: { pedalName, description, pedalPhoto, youTubeLink, youTubeTitle },
+
     });
 
-    // dispatch({
-    //   type: 'SEND_YOUTUBE_VIDEO',
-    //   payload: { youTubeLink, id: params.id, youTubeTitle  }  // this is going to send the information for the youtube videos.
-    // });
+    history.push('/#/user')
 
   } // end handleSubmit
 
@@ -39,8 +40,8 @@ function AddNewPedal() {
   return(
     <div >
       <form onSubmit={handleSubmit} >
-      <input onChange={(event) => setPedalPhoto(event.target.value)} type= "text" placeholder= "Guitar Pedal Image Link" />
         <input onChange={(event) => setPedalName(event.target.value)} type= "text" placeholder= "Enter The Pedal Name" />
+        <input onChange={(event) => setPedalPhoto(event.target.value)} type= "text" placeholder= "Guitar Pedal Image Link" />
         <textarea onChange={(event) => setNewDescription(event.target.value)}  
           id="descriptionBox"
           rows="8"

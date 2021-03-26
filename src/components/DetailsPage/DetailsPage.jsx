@@ -123,7 +123,7 @@ useEffect(() =>{
 
   return(
     <div>
-      <Grid container >
+      <Grid >
         {/* aria-label="Edit Icon" component={ Link } to="/editMode" */}
       <IconButton onClick={handleClick} >
         <EditIcon/>

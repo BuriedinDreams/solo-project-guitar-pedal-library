@@ -35,10 +35,12 @@ router.get('/:id', (req, res) =>{
   queryText=`
   SELECT * 
   FROM "youtube_links"
-  WHERE "pedal_id" = $1 AND "user_id" =$2
+  WHERE "pedal_id" = $1 
   ;`
 
-  pool.query(queryText,[req.params.id, req.user.id] ) 
+  // AND "user_id" =$2
+
+  pool.query(queryText,[req.params.id, ] ) // req.user.id
   .then(result =>{
     console.log('result.rows', result.rows);
     res.send(result.rows); // might be result.rows[0]
