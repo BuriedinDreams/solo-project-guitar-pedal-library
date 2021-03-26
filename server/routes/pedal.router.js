@@ -213,75 +213,67 @@ router.put('/updateYouTube', (req, res) => {
 
 
 
-// router.put('/update', (req, res) => {
-//   console.log('req.body', req.body);
-//   let pedalId = req.body.id;
-//   let description = req.body.newDescription; // This right side needs to match on dispatch. ie. newDesciprtion 
-//   let photo = req.body.newPhoto;
+router.put('/update', (req, res) => {
+  console.log('req.body', req.body);
+  let pedalId = req.body.id;
+  let description = req.body.newDescription; // This right side needs to match on dispatch. ie. newDesciprtion 
+  let photo = req.body.newPhoto;
 
-//   const queryText = `
-//   UPDATE "pedal"
-//   SET "description_of_pedal" = $1, "photo" = $2
-//   WHERE "id" = $3 AND "user_id" = $4  -- this will catch if there are multiples of the same pedal.
-//   ;
-//     `;
-//   pool.query(queryText, [ description, photo, pedalId, req.user.id ])
-//     .then((result) => {
-//         console.log('Successful PUT');
-//         let youTubeLinks = req.body.youTubeLink; //  req.body. youtubeLink | this name has to match was is being fed through the object.
-//         let youTubeTitleName = req.body.youTubeTitle;
-//         let pedalId = req.body.id;
+  const queryText = `
+  UPDATE "pedal"
+  SET "description_of_pedal" = $1, "photo" = $2
+  WHERE "id" = $3 AND "user_id" = $4  -- this will catch if there are multiples of the same pedal.
+  ;
+    `;
+  pool.query(queryText, [ description, photo, pedalId, req.user.id ])
+    .then((result) => {
+        console.log('Successful PUT');
+        let youTubeLinks = req.body.youTubeLink; //  req.body. youtubeLink | this name has to match was is being fed through the object.
+        let youTubeTitleName = req.body.youTubeTitle;
+        let pedalId = req.body.id;
         
 
-//         const youTubeUpdateQuery =`
-//         UPDATE "youtube_links"
-//         SET "youtube_links" = $1, "youtube_link_title" = $2
-//         WHERE "pedal_id" = $3 AND "user_id" = $4
-//         ;
-//           `;
+        const youTubeUpdateQuery =`
+        UPDATE "youtube_links"
+        SET "youtube_links" = $1, "youtube_link_title" = $2
+        WHERE "pedal_id" = $3 AND "user_id" = $4
+        ;
+          `;
 
-//       pool.query(youTubeUpdateQuery, [youTubeLinks, youTubeTitleName, pedalId, req.user.id])
-//       .then(result =>{
-//         console.log('Successful PUT');
-//       })
-//       .catch((error) => {
-//         console.log('Error in PUT Youtube', error);
-//         res.sendStatus(500);
-//       })
+      pool.query(youTubeUpdateQuery, [youTubeLinks, youTubeTitleName, pedalId, req.user.id])
+      .then(result =>{
+        console.log('Successful PUT');
+      })
+      .catch((error) => {
+        console.log('Error in PUT Youtube', error);
+        res.sendStatus(500);
+      })
 
-//     })
-//     .catch((err) => {
-//       console.log('Error in PUT PEDAL', err);
-//       res.sendStatus(500);
-//     })
+    })
+    .catch((err) => {
+      console.log('Error in PUT PEDAL', err);
+      res.sendStatus(500);
+    })
 
-//   res.sendStatus(200);
-// });
+  res.sendStatus(200);
+});
 
 
 // this delete will be able to delete a photo 
 router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
-  
-  const queryText = 'DELETE FROM "pedal" WHERE id=$1'; //cascade? | ON Delete cascade ....
-  
-  pool.query(queryText, [req.params.id])
-    .then((result) => {
-      // const youTubeQueryText =`
-      // DELETE FROM "youtube_links" WHERE id=$1
-      // `
-      // pool.query( youTubeQueryText, [req.params.id] )
-      
-      
-       res.sendStatus(200); 
 
-    })
-    .catch((error) => {
-      console.log('Error deleting a pedal in pedal.router', error);
-      res.sendStatus(500);
-    });
+  const deletePedalQuery = `DELETE FROM "pedal" WHERE id = $1 ;`
+
+  pool.query( deletePedalQuery, [req.params.id])
+  .then(result => {
+    console.log('success delete of the pedal');
+    res.sendStatus(200)
+  })
+  .catch((error) => {
+    console.log('Error deleting a pedal in pedal.router', error);
+    res.sendStatus(500);
+  });
 });
-
-
 
 
 module.exports = router;

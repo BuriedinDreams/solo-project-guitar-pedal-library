@@ -27,9 +27,11 @@ function MyPedals() {
   },[]);
 
   function handleDelete(pedalID){
+    console.log('pedalID', pedalID);
+
     dispatch({
       type: 'DELETE_PEDAL',
-      payload: { pedalID }
+      payload: pedalID
       //  payload: { id: params.id } // this is getting the id 
     });
   }
