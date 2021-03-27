@@ -19,7 +19,7 @@ function UserPage() {
   return (
     <div className="container">
 
-<IconButton aria-label="Add Pedals" component={ Link } to="/newPedal" >
+      <IconButton aria-label="Add Pedals" component={ Link } to="/newPedal" >
         < AddToPhotosIcon/>
       </IconButton>
 
@@ -28,11 +28,6 @@ function UserPage() {
       </IconButton>
 
 
-
-{/* <Button component={ Link } to="/newPedal" variant="contained" color="primary">
-    newPedal
-</Button> */}
-
       <Grid container direction="row" justify="center"  >
         <Grid item xs={6}  >
           <div className="Top-Banner">
@@ -40,7 +35,9 @@ function UserPage() {
             <p> checkout all of the pedals! </p>
           </div>
 
+          <Grid container direction="row"  >
           <PedalList />
+          </Grid>
 
 
 

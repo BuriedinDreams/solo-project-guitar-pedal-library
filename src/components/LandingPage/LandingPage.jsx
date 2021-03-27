@@ -20,10 +20,10 @@ function LandingPage() {
       <div className="grid">
         <div className="grid-col grid-col_8">
           <p>
-            Hello, are you looking for an exciting new community to be part of? To gain knowledge and share wisdom about Guitar Pedals. If so, welcome to the Guitar Pedal Library social media site.
-            On this website you will be able to look through a vast collection of physical guitar pedals posted by users. The simple first step to joining this exciting community is by signing up for an account.
+            Hello, are you looking for an exciting new community to be part of? To gain knowledge and share wisdom about guitar pedals, if so welcome to the Guitar Pedal Library website.
+            On this website you will be able to look through a vast collection of physical guitar pedals posted by users. Getting started is easy, the first step to joining this exciting community is by signing up for an account.
             All you need to do is enter a Username "pick something creative because other users will see this displayed." And of course a password.
-            If you already a member Just Login!
+            If you already a member just login!
           </p>
         </div>
         <div className="grid-col grid-col_4">

@@ -123,23 +123,30 @@ useEffect(() =>{
 
   return(
     <div>
-      <Grid >
+      <Grid  >
         {/* aria-label="Edit Icon" component={ Link } to="/editMode" */}
-      <IconButton onClick={handleClick} >
-        <EditIcon/>
-      </IconButton>
 
-      
+       <Grid container item xs={4} justify="flex-start"  >
+          <IconButton onClick={handleClick} >
+            <EditIcon/>
+          </IconButton>
+       </Grid> 
 
-        {/* <p>{onePedal.is_liked}</p> */}
-
-        <Grid item xs={2}>
-          <h2>Description</h2>
-        </Grid>
-
-        <Grid  item xs={6}>
+        <Grid container justify="center"  >
         <h1>{onePedal.pedal_name}</h1> 
         </Grid>
+
+        <Grid container
+              direction="row"
+              justify="flex-end"
+              // alignItems="center"
+              spacing ={4}
+               >
+              <Grid xs={3} >
+              <h2>Description</h2>
+              </Grid>
+        </Grid>
+
 
         {/* ? Is showing what will be rendered when the user clicks the edit button.  VS  : is showing what will be default on the DOM */}
 
@@ -148,7 +155,7 @@ useEffect(() =>{
               ?
               <div>
                 <form onSubmit={submitNewPhoto}>
-                <Grid  >
+                <Grid item xs={12} >
                 <div><img src={onePedal.photo} alt="" height="200px"  /></div>
                 <input onChange={(event) => setNewPhoto(event.target.value)} type="text" placeholder="enter new URL photo here" value={newPhoto} />
                 <button>Save</button>
@@ -161,7 +168,7 @@ useEffect(() =>{
                 {colorChange
                 ?
                 <div>
-                  <Grid>
+                  <Grid  item xs={8}  >
                 <div><img src={onePedal.photo} alt="" height="200px" /></div>
                 <IconButton onClick={pedalLiked} >
                 <ThumbUpIcon  />
@@ -170,7 +177,7 @@ useEffect(() =>{
                 </div>
                 
                   :
-                <Grid>
+                <Grid item xs={2} >
                   <div><img src={onePedal.photo} alt="" height="200px" /></div>
                   <IconButton onClick={pedalLiked}  color="primary">
                     <ThumbUpIcon  />
@@ -185,7 +192,7 @@ useEffect(() =>{
                   ?
                   <div>
                   <form onSubmit={submitNewDescription}>
-                  <Grid item xs={4}>
+                  <Grid item xs={12}  >
                     <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
                   <button>Save</button>
                   </Grid>
