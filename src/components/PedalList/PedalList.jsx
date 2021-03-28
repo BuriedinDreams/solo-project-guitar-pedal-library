@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import PedalItem from '../PedalItem/PedalItem';
 import DetailsPage from '../DetailsPage/DetailsPage';
 // import './UserPage.css';
+import Grid from '@material-ui/core/Grid'; // this allows me to create grids
 
 
 
@@ -21,15 +22,19 @@ function PedalList() {
 
   return(
     <ul>
+      <Grid container direction="row" spacing={3}  >
       {pedals.map(iPedal => {
           return(
-            <div key={iPedal.id} key={iPedal.pedal_name}  >  
-            {/* This is going to send the Individual pedals to the Pedal Item file.  */}
-            <PedalItem pedals={iPedal} /> 
-           
-          </div>
+            <Grid item xs={4}  >
+              <div key={iPedal.id} key={iPedal.pedal_name}  >  
+                {/* This is going to send the Individual pedals to the Pedal Item file.  */}
+                <PedalItem pedals={iPedal} /> 
+              </div>
+            </Grid>
+
           )
         })}
+      </Grid>
     </ul>
 
   );

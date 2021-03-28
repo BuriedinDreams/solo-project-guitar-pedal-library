@@ -19,28 +19,25 @@ function UserPage() {
   return (
     <div className="container">
 
-<IconButton aria-label="Add Pedals" component={ Link } to="/newPedal" >
+      <IconButton aria-label="Add Pedals" component={ Link } to="/newPedal"  color="primary" >
         < AddToPhotosIcon/>
       </IconButton>
 
-      <IconButton aria-label="Add Pedals" component={ Link } to="/myPedals" >
+      <IconButton aria-label="Add Pedals" component={ Link } to="/myPedals"  color="primary" >
         < AccountBoxIcon/>
       </IconButton>
 
 
-
-{/* <Button component={ Link } to="/newPedal" variant="contained" color="primary">
-    newPedal
-</Button> */}
-
-      <Grid container justify="center" >
-        <Grid item xs={6}>
+      <Grid container direction="row" justify="center"  >
+        <Grid item xs={6}  >
           <div className="Top-Banner">
             <h2>Welcome to the Guitar Pedal Library</h2>
             <p> checkout all of the pedals! </p>
           </div>
 
+          <Grid container direction="row"  >
           <PedalList />
+          </Grid>
 
 
 
@@ -53,17 +50,3 @@ function UserPage() {
 
 // this allows us to use <App /> in index.js
 export default UserPage;
-
-
-
-
-
-
-
-
-
-
-
-{/* <h2>Welcome, {user.username}!</h2>
-<p>Your ID is: {user.id}</p>
-<LogOutButton className="btn" /> */}

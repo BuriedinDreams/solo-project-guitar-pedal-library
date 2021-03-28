@@ -7,7 +7,7 @@
   text-align: center;
   color: white;
   background: rgb(16,121,9);
-  background: linear-gradient(90deg, rgba(16,121,9,1) 35%, rgba(6,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(16,121,9,1) 30%, #ee6c4d 75%);
 }
 
 /* .pedalsRow{

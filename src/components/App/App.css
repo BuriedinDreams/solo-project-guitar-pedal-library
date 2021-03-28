@@ -6,13 +6,16 @@ body,
 
 body {
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'RocknRoll One', sans-serif;
   margin: 0px;
+  background-color: #001d3d;
+  color: #e5e5e5;
 }
 
 img {
   display: inline-block;
-  max-width: 100%;
+  /* max-width: 100%; */
 }
 
 /* --------------------------------------------------------------------------------
@@ -30,10 +33,10 @@ Button
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  border-color: #1b4332;
+  border-color: orange;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: #1b4332;
+  background-color: orange;
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
@@ -46,8 +49,8 @@ Button
 }
 
 .btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
+  padding: 15px 30px;
+  font-size: 1.0rem;
 }
 
 .btn_sizeFull {
@@ -56,7 +59,7 @@ Button
 }
 
 .btn:hover {
-  background-color: #1b4332;
+  background-color: rgba(255, 140, 0, 0.913);
   text-decoration: none;
 }
 
@@ -102,7 +105,8 @@ Form Treatment
   max-width: 100%;
   padding: 25px;
   margin: 0 auto 20px;
-  background-color: #efefef;
+  background-color: #cbc9c9;
+  color: #f2f2f2;
   border-radius: 3px;
   box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
 }

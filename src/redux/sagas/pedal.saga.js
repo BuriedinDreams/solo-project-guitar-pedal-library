@@ -53,6 +53,8 @@ function* newPedalPost(action) {
       type: 'FETCH_PEDALS'
     })
 
+    
+
   } catch {
     console.log('Error inside newPedalInfoSaga: pedal.saga');
   }
@@ -101,6 +103,7 @@ function* updateSaga() {
   yield takeEvery ('UPDATE_PEDAL_PHOTO', PedalPhotoUpdate)
   yield takeEvery ('UPDATE_PEDAL_DESCRIPTION', PedalDescriptionUpdate)
   yield takeEvery ('UPDATE_PEDAL_YOUTUBE', PedalYouTubeUpdate )
+  yield takeEvery ('DELETE_PEDAL', DeletePedalSaga)
 }
 
 function* PedalPhotoUpdate(action) {
@@ -152,6 +155,32 @@ function* PedalYouTubeUpdate(action) {
   catch (error) {
     console.log('Saga PUT error in description', error);
   }
+}
+
+
+
+function* DeletePedalSaga(action) {
+  console.log('DeletePedalSaga', action);
+
+  try{
+    yield axios.delete (`api/pedal/delete/${action.payload}`)
+  
+    yield put ({
+      type: 'SET_USERS_PEDALS',
+      payload: action.payload
+    })
+
+    yield put({
+      type: 'FETCH_PEDALS',
+    })
+  
+  }
+  catch (error) {
+    console.log('Saga Delete error in deleting a pedal', error);
+  }
+
+
+
 }
 
 
