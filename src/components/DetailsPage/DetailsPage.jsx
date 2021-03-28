@@ -115,15 +115,17 @@ useEffect(() =>{
   function handleClick() {
     console.log("I'm Clicked", )
 
-    setIsClicked(!isClicked) // everytime the button is clicked this function will set it to the oppsite action. 
+    setIsClicked(!isClicked) // everytime the button is clicked this function will set it to the opposite action. 
   
   }
 
-  
-
   return(
     <div>
-      <Grid  >
+      <Grid 
+        container 
+        // spacing={3}
+        // alignItems="flex-start"
+      >
         {/* aria-label="Edit Icon" component={ Link } to="/editMode" */}
 
        <Grid container item xs={4} justify="flex-start"  >
@@ -136,27 +138,17 @@ useEffect(() =>{
         <h1>{onePedal.pedal_name}</h1> 
         </Grid>
 
-        <Grid container
-              direction="row"
-              justify="flex-end"
-              // alignItems="center"
-              spacing ={4}
-               >
-              <Grid xs={3} >
-              <h2>Description</h2>
-              </Grid>
-        </Grid>
+        
 
-
-        {/* ? Is showing what will be rendered when the user clicks the edit button.  VS  : is showing what will be default on the DOM */}
-
-        <div>
+        <Grid container justify="" >
+          
+          {/* ? Is showing what will be rendered when the user clicks the edit button.  VS  : is showing what will be default on the DOM */}
           {isClicked
               ?
               <div>
                 <form onSubmit={submitNewPhoto}>
-                <Grid item xs={12} >
-                <div><img src={onePedal.photo} alt="" height="200px"  /></div>
+                <Grid item xs={4} >
+                <div><img src={onePedal.photo} alt="" height="200px" /></div>
                 <input onChange={(event) => setNewPhoto(event.target.value)} type="text" placeholder="enter new URL photo here" value={newPhoto} />
                 <button>Save</button>
                 </Grid>
@@ -167,49 +159,71 @@ useEffect(() =>{
               <div>
                 {colorChange
                 ?
-                <div>
-                  <Grid  item xs={8}  >
-                <div><img src={onePedal.photo} alt="" height="200px" /></div>
+                  <Grid 
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="flex-start"
+                    justify="space-between"
+                  >
+                <div><img src={onePedal.photo} alt="" height="200px"  /></div>
                 <IconButton onClick={pedalLiked} >
-                <ThumbUpIcon  />
-              </IconButton>
+                  <ThumbUpIcon/>
+                </IconButton>
                   </Grid>
-                </div>
                 
                   :
-                <Grid item xs={2} >
-                  <div><img src={onePedal.photo} alt="" height="200px" /></div>
+                  <Grid 
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="flex-start"
+                    justify="space-between"
+                  >
+                  <div><img src={onePedal.photo} alt="" height="200px" /></div>     
                   <IconButton onClick={pedalLiked}  color="primary">
                     <ThumbUpIcon  />
                   </IconButton>
                 </Grid>
-            }
+                  
+            } 
             </div>
               
-              } 
+          } 
+            <Grid 
+              container
+              justify="flex-end" >
+              <Grid item  xs={6} >
+               <h2>Description</h2>
+              </Grid>
+            </Grid>
 
               {isClicked
                   ?
-                  <div>
+                  // <div>
                   <form onSubmit={submitNewDescription}>
-                  <Grid item xs={12}  >
+                  <Grid 
+                  container
+                  justify="flex-end"
+                  item xs={10}   
+                  >
                     <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
                   <button>Save</button>
                   </Grid>
                 </form>
-                </div>
-                  
-    
-                :
-                <div>
-                  <Grid item xs={4}>
-                    <p>{onePedal.description_of_pedal}</p>
-                  </Grid>
-                </div>
-                
 
+                :
+                  <Grid 
+                  container
+                  justify="flex-end"
+                  >
+                    <Grid item  xs={6}>
+                    <p>{onePedal.description_of_pedal}</p>
+                    </Grid>
+                  </Grid>
               }
-        </div>
+        </Grid>
+        
 
 
         {isClicked && (<Grid item xs={6}>
@@ -241,7 +255,7 @@ useEffect(() =>{
           })}
           </div>
         </Grid>
-        </div>
+      </div>
 
   )
 
