@@ -20,16 +20,13 @@ function goToDetailsPage(id) {
 
     return (
 
-
-      // <Grid container direction="row"  >
-
       <div className="pedalImg" >
         <div > <img src={pedals.photo} alt="image of pedal" height="200px" onClick={() => goToDetailsPage(pedals.id)} /> </div>
         <div>{pedals.pedal_name}</div> 
         <div>Has {pedals.Likes} Likes!</div>
       </div>
 
-      // </Grid>
+  
 
     )
 

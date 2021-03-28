@@ -8,23 +8,17 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-
-
-
 function MyPedals() {
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory(); // this is used get to the next page
- 
 
   const UsersPedals = useSelector((store) => store.PedalReducer.UsersPedalReducer);
   console.log('usersPedal useSelector',UsersPedals);
 
-
   useEffect(() =>{
     dispatch({
       type: 'FETCH_USERS_PEDALS',
-    
     });
   },[]);
 
@@ -36,44 +30,43 @@ function MyPedals() {
       payload: pedalID
     });
 
-  
-    
     history.push('/#/user')
     
   }
 
-
   return(
-    <div>
-        <Grid container justify="center"  >
-
-          <Grid item xs={6}>
-          <div className="Top-Banner-myPedals" justify="center" >
-            <h2>My pedal Board collection</h2>
+    <Grid container alignItems="center" direction="column" spacing={3} >
+        <Grid container item justify="center" xs={12} >
+          <Grid item xs={6} >
+          <div className="Top-Banner-myPedals" >
+            <h2>My Pedal Board Collection</h2>
             <p> checkout all of the pedals! </p>
           </div>
           </Grid>
-
         </Grid>
 
-    {UsersPedals.map(iPedals => {
-      return(
-        // <form onSubmit={handleDelete}>
-        <div key={iPedals.id} key={iPedals.photo} key={iPedals.pedal_name} className="pedalsRow" >
-          <div ><img src={iPedals.photo} alt="" height="200px" /></div>
-          <button onClick= {(event) => handleDelete(iPedals.id)} >Delete</button>
-          <div>{iPedals.pedal_name}</div>
-        </div>
-        // </form>
-      )
-    })}
-    </div>
+
+      <Grid container item direction="row" alignItems="center" xs={6} spacing={2} >
+      {UsersPedals.map(iPedals => {
+        return(
+          <Grid container item xs={4} direction="column" justify="center" alignItems="center" key={iPedals.id} key={iPedals.photo} key={iPedals.pedal_name} className="pedalsRow" >
+            <Grid item >
+              <img src={iPedals.photo} height="200px" />
+            </Grid>
+            <Grid item >
+              <button onClick= {(event) => handleDelete(iPedals.id)} >Delete</button> 
+            </Grid>
+            <Grid item >
+              <div>{iPedals.pedal_name}</div> 
+            </Grid>
+          </Grid>
+        )
+      })}
+      </Grid>      
+    </Grid>
 
   )
 
-
 }
-
-
 
 export default MyPedals

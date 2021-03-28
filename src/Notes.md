@@ -23,6 +23,8 @@ function DetailsPage( ) {
   const [ newDescription, setNewDescription ] = useState('')
   const [isClicked, setIsClicked] = useState(false)
   const [colorChange, setColorChange] =useState(true) // this is will make the color of the button change to blue, once clicked.
+  // canelBtn useState(false)
+  // saveBtn useState(false)
   
 
   const onePedal = useSelector((store) => store.PedalReducer.onePedalReducer);
@@ -119,11 +121,15 @@ useEffect(() =>{
 
   return(
     <div>
-      <Grid container >
-        
+      <Grid 
+        container 
+        // spacing={3}
+        // alignItems="flex-start"
+      >
+        {/* aria-label="Edit Icon" component={ Link } to="/editMode" */}
 
        <Grid container item xs={4} justify="flex-start"  >
-          <IconButton onClick={handleClick} color="primary"  >
+          <IconButton onClick={handleClick} >
             <EditIcon/>
           </IconButton>
        </Grid> 
@@ -134,7 +140,7 @@ useEffect(() =>{
 
         
 
-        <Grid container justify="space-around"  >
+        <Grid container justify="" >
           
           {/* ? Is showing what will be rendered when the user clicks the edit button.  VS  : is showing what will be default on the DOM */}
           {isClicked
@@ -151,17 +157,17 @@ useEffect(() =>{
 
               :
               <div>
-                {colorChange // This ? is when the button is not clicked.
+                {colorChange
                 ?
                   <Grid 
                     container
                     direction="row"
                     justify="center"
                     alignItems="flex-start"
-                    justify="space-around"
+                    justify="space-between"
                   >
                 <div><img src={onePedal.photo} alt="" height="200px"  /></div>
-                <IconButton onClick={pedalLiked}   color="primary " >
+                <IconButton onClick={pedalLiked} >
                   <ThumbUpIcon/>
                 </IconButton>
                   </Grid>
@@ -172,11 +178,10 @@ useEffect(() =>{
                     direction="row"
                     justify="center"
                     alignItems="flex-start"
-                    justify="space-around"
-                    
+                    justify="space-between"
                   >
                   <div><img src={onePedal.photo} alt="" height="200px" /></div>     
-                  <IconButton onClick={pedalLiked}  color="secondary">
+                  <IconButton onClick={pedalLiked}  color="primary">
                     <ThumbUpIcon  />
                   </IconButton>
                 </Grid>
@@ -185,30 +190,43 @@ useEffect(() =>{
             </div>
               
           } 
-            
+            <Grid 
+              container
+              justify="flex-end" >
+              <Grid item  xs={6} >
+               <h2>Description</h2>
+              </Grid>
+            </Grid>
 
               {isClicked
                   ?
+                  // <div>
                   <form onSubmit={submitNewDescription}>
-                    <Grid item xs={6}  >
-                      <h2>Description</h2>
-                    </Grid>
-                      <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
-                    <button>Save</button>
-                  </form>
+                  <Grid 
+                  container
+                  justify="flex-end"
+                  item xs={10}   
+                  >
+                    <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
+                  <button>Save</button>
+                  </Grid>
+                </form>
 
                 :
-                  
-                  <Grid item xs={4} >
-                    <h2>Description</h2>
-                    <p>{onePedal.description_of_pedal} </p>
-                   </Grid>
+                  <Grid 
+                  container
+                  justify="flex-end"
+                  >
+                    <Grid item  xs={6}>
+                    <p>{onePedal.description_of_pedal}</p>
+                    </Grid>
+                  </Grid>
               }
         </Grid>
         
 
 
-        {isClicked && (<Grid item xs={3} >
+        {isClicked && (<Grid item xs={6}>
           <div className="textBox" >
             <h3>Enter YouTube Link in Textbox</h3>
             <form onSubmit={submitNewYouTubeVideos} >
