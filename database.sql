@@ -4,13 +4,14 @@
 -- Otherwise you will have errors!
 
 
+
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (100) UNIQUE NOT NULL,
     "password" VARCHAR (100) NOT NULL
 );
 
- -- DROP TABLE "pedal"
+-- DROP TABLE "pedal"
 -- This is going to keep track of what user created the pedal, the pedal name(s) and the description of said pedal.
 CREATE TABLE "pedal" (
 	"id" SERIAL PRIMARY KEY,
@@ -21,16 +22,8 @@ CREATE TABLE "pedal" (
 
 );
 
-DROP TABLE "comments";
--- This is going to keep track of the comments for individual pedals && what user said as a comment.
-CREATE TABLE "comments" (
-	"id" SERIAL PRIMARY KEY,
-	"user_id" INT REFERENCES "user",
-	"pedal_id" INT REFERENCES "pedal",
-	"comments" VARCHAR (2000) NOT NULL -- this is saving what the user said as a comment. 	
-	
-);
-DROP TABLE "youtube_links";
+
+-- DROP TABLE "youtube_links";
 -- This is going to keep track of the youtube_links for individual pedals.
 CREATE TABLE "youtube_links" (
 	"id" SERIAL PRIMARY KEY,
@@ -41,7 +34,7 @@ CREATE TABLE "youtube_links" (
 
 );
 
-DROP TABLE "likes";
+--DROP TABLE "likes";
 -- This is going to keep track of the number of likes for individual pedals.
 CREATE TABLE "likes" (
 	"id" SERIAL PRIMARY KEY,
@@ -51,14 +44,18 @@ CREATE TABLE "likes" (
 	
 );
 
--- DROP TABLE "photos";
--- This is going to keep track of the images for individual pedals.
-CREATE TABLE "photos" (
-	"id" SERIAL PRIMARY KEY,
-	"user_id" INT REFERENCES "user",
-	"pedal_id" INT REFERENCES "pedal",
-	"photo" VARCHAR (2000) NOT NULL -- this is going to save the photos 
-);
+-- Some Test Data
+INSERT INTO "pedal" ("pedal_name", "description_of_pedal", "photo")
+VALUES
+('The Blues Driver Pedal', 'The Blues Driver Pedal is an iconic classic for any Blues or Rock N Roll Player. 
+The pedal has a characteristic mid-boosted tone popular with blues, rock and metal players.', 'https://www.bhphotovideo.com/images/images2500x2500/boss_bd_2_blues_driver_1174241.jpg' )
+;
+
+
+
+-- Please run everything above this line in Postgresql
+
+----------------------------------------------------------------
 
 -- this GET is to retrieve all of the photos so they may be placed on the DOM. 
 -- router.get('/' 
