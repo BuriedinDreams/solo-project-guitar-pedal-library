@@ -36,17 +36,14 @@ function UserPage() {
           </div>
 
           <Grid container direction="row"  >
-          <PedalList />
+            <PedalList />
           </Grid>
-
-
-
-          </Grid>
+        </Grid>
       </Grid >
 
     </div>
   );
 }
 
-// this allows us to use <App /> in index.js
+
 export default UserPage;

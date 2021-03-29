@@ -121,7 +121,6 @@ useEffect(() =>{
     <div>
       <Grid container >
         
-
        <Grid container item xs={4} justify="flex-start"  >
           <IconButton onClick={handleClick} color="primary"  >
             <EditIcon/>
@@ -129,10 +128,9 @@ useEffect(() =>{
        </Grid> 
 
         <Grid container justify="center"  >
-        <h1>{onePedal.pedal_name}</h1> 
+          <h1>{onePedal.pedal_name}</h1> 
         </Grid>
 
-        
 
         <Grid container justify="space-around"  >
           
@@ -161,7 +159,7 @@ useEffect(() =>{
                     justify="space-around"
                   >
                 <div><img src={onePedal.photo} alt="" height="200px"  /></div>
-                <IconButton onClick={pedalLiked}   color="primary " >
+                <IconButton onClick={pedalLiked} color="primary" >
                   <ThumbUpIcon/>
                 </IconButton>
                   </Grid>
@@ -176,7 +174,7 @@ useEffect(() =>{
                     
                   >
                   <div><img src={onePedal.photo} alt="" height="200px" /></div>     
-                  <IconButton onClick={pedalLiked}  color="secondary">
+                  <IconButton onClick={pedalLiked} color="secondary" >
                     <ThumbUpIcon  />
                   </IconButton>
                 </Grid>
@@ -186,24 +184,23 @@ useEffect(() =>{
               
           } 
             
+          {isClicked
+            ?
+            <form onSubmit={submitNewDescription}>
+              <Grid item xs={6}  >
+                <h2>Description</h2>
+              </Grid>
+                <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
+              <button>Save</button>
+            </form>
 
-              {isClicked
-                  ?
-                  <form onSubmit={submitNewDescription}>
-                    <Grid item xs={6}  >
-                      <h2>Description</h2>
-                    </Grid>
-                      <textarea onChange={(event) => setNewDescription(event.target.value)}  id="descriptionBox" rows="8" cols="50" >{onePedal.description_of_pedal}</textarea>
-                    <button>Save</button>
-                  </form>
-
-                :
-                  
-                  <Grid item xs={4} >
-                    <h2>Description</h2>
-                    <p>{onePedal.description_of_pedal} </p>
-                   </Grid>
-              }
+            :
+              
+            <Grid item xs={4} >
+              <h2>Description</h2>
+              <p>{onePedal.description_of_pedal} </p>
+            </Grid>
+          }
         </Grid>
         
 
@@ -221,9 +218,6 @@ useEffect(() =>{
           </div>
         </Grid>)}
           
-        
-
-
           <div>
           {youTubeVids.map(iVideo => {
             return(

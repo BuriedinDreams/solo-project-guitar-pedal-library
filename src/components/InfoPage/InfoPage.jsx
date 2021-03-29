@@ -8,7 +8,10 @@ import React from 'react';
 function InfoPage() {
   return (
     <div className="container">
-      <p> Pedal Details Page</p>
+      <p> This application is a Guitar Pedal Library social media site. In this application you will be able to look through 
+        a vast collection of physical guitar pedals. What makes this application unique is it has the ability to add photos of guitar pedals, 
+        add comments, In addition, to add YouTube videos that will be seen on said guitar pedal page. 
+      </p>
     </div>
   );
 }

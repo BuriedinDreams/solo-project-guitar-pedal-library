@@ -4,61 +4,60 @@
 -- Otherwise you will have errors!
 
 
-
 CREATE TABLE "user" (
-"id" SERIAL PRIMARY KEY,
-"username" VARCHAR (100) UNIQUE NOT NULL,
-"password" VARCHAR (100) NOT NULL
+    "id" SERIAL PRIMARY KEY,
+    "username" VARCHAR (100) UNIQUE NOT NULL,
+    "password" VARCHAR (100) NOT NULL
 );
 
--- DROP TABLE "pedal" cascade ;
+ -- DROP TABLE "pedal"
 -- This is going to keep track of what user created the pedal, the pedal name(s) and the description of said pedal.
 CREATE TABLE "pedal" (
-"id" SERIAL PRIMARY KEY,
-"user_id" INT REFERENCES "user",
-"pedal_name" VARCHAR (500) NOT NULL,
-"description_of_pedal" VARCHAR (2000) NOT NULL,	-- this is saving what the user entered as a description for said pedal
-"photo" VARCHAR (2000) NOT NULL -- this is going to save the photos 
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES "user",
+	"pedal_name" VARCHAR (500) NOT NULL,
+	"description_of_pedal" VARCHAR (2000) NOT NULL,	-- this is saving what the user entered as a description for said pedal
+	"photo" VARCHAR (2000) NOT NULL -- this is going to save the photos 
 
 );
 
--- DROP TABLE "comments";
+DROP TABLE "comments";
 -- This is going to keep track of the comments for individual pedals && what user said as a comment.
 CREATE TABLE "comments" (
-"id" SERIAL PRIMARY KEY,
-"user_id" INT REFERENCES "user",
-"pedal_id" INT REFERENCES "pedal",
-"comments" VARCHAR (2000) NOT NULL -- this is saving what the user said as a comment. 	
-
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES "user",
+	"pedal_id" INT REFERENCES "pedal",
+	"comments" VARCHAR (2000) NOT NULL -- this is saving what the user said as a comment. 	
+	
 );
--- DROP TABLE "youtube_links";
+DROP TABLE "youtube_links";
 -- This is going to keep track of the youtube_links for individual pedals.
 CREATE TABLE "youtube_links" (
-"id" SERIAL PRIMARY KEY,
-"user_id" INT REFERENCES "user",
-"pedal_id" INT REFERENCES "pedal",
-"youtube_links" VARCHAR (2000) NOT NULL,
-"youtube_link_title" VARCHAR (2000) NOT NULL -- add this to edit screen/ add screen
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES "user",
+	"pedal_id" INT REFERENCES "pedal" ON DELETE CASCADE,
+	"youtube_links" VARCHAR (2000) NOT NULL,
+	"youtube_link_title" VARCHAR (2000) NOT NULL -- add this to edit screen/ add screen
 
 );
 
--- DROP TABLE "likes";
+DROP TABLE "likes";
 -- This is going to keep track of the number of likes for individual pedals.
 CREATE TABLE "likes" (
-"id" SERIAL PRIMARY KEY,
-"user_id" INT REFERENCES "user",
-"pedal_id" INT REFERENCES "pedal",
-UNIQUE ( "user_id", "pedal_id" )
-
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES "user",
+	"pedal_id" INT REFERENCES "pedal" ON DELETE CASCADE,
+	UNIQUE ( "user_id", "pedal_id" )
+	
 );
 
 -- DROP TABLE "photos";
 -- This is going to keep track of the images for individual pedals.
 CREATE TABLE "photos" (
-"id" SERIAL PRIMARY KEY,
-"user_id" INT REFERENCES "user",
-"pedal_id" INT REFERENCES "pedal",
-"photo" VARCHAR (2000) NOT NULL -- this is going to save the photos 
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES "user",
+	"pedal_id" INT REFERENCES "pedal",
+	"photo" VARCHAR (2000) NOT NULL -- this is going to save the photos 
 );
 
 -- this GET is to retrieve all of the photos so they may be placed on the DOM. 
@@ -132,8 +131,6 @@ VALUES ('1', '3' )ON CONFLICT DO NOTHING
 ;
 
 
-
-
 -- This GET will retrieve all the pedals the said user created
 -- router.get('/myPedals'
 
@@ -147,7 +144,6 @@ SELECT *
 FROM "pedal"
 WHERE "user_id" = '1'
 ;
-
 
 
 -- This Put/Update route only updates the Photo when the user is in edit mode on the details page.
@@ -204,13 +200,23 @@ INSERT INTO "youtube_links" ("user_id", "pedal_id", "youtube_links", "youtube_li
 VALUES ($1, $2, $3, $4) 
 ;
 
-
-
 --This GET is going to retrieve said youtube videos that match the id.
 --router.get('/:id'
 
 SELECT * 
 FROM "youtube_links"
-WHERE "pedal_id" = $1 AND "user_id" =$2
+WHERE "pedal_id" = $1
 ;
 
+-- CASCADE 
+
+ON DELETE CASCADE 
+
+ DELETE FROM "youtube_links" WHERE "pedal_id" = $1;
+;
+
+DELETE FROM "likes" WHERE "pedal_id" = $1
+;
+
+DELETE FROM "pedal" WHERE id = $1 
+;
