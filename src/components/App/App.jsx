@@ -151,7 +151,7 @@ function App() {
           </Switch>
           </Grid>
           <Grid item xs={12} >
-          <Footer />
+            <Footer />
           </Grid>
         </Grid>
       </Router>
