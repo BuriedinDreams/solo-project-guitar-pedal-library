@@ -21,10 +21,10 @@ To see the app in the action go to https://guitar-pedal-library.herokuapp.com/#/
 
 
 ## This Application was built using 
-Javascript
-React
-Redux
-Node
-Express
-PostgreSQL
-Material UI
+* Javascript
+* React
+* Redux
+* Node
+* Express
+* PostgreSQL
+* Material UI
