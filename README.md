@@ -71,6 +71,6 @@ SOFTWARE.
 
 Thanks to the Cullen Cohort, my instructors, and specifically Vada, John, and Dusty for their support through this project and the Prime program.
 
-##
+## Questions / Suggestions / Issues
 
 If you have suggestions or issues, please contact me at on [LinkedIn](https://www.linkedin.com/in/zack-werner/)
